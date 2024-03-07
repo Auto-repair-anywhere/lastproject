@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import Screenn from './components/auth/home2.jsx';
