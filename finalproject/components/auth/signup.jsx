@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, ImageBackground, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import axios from 'axios';
+import {IP} from '../../Backend/ip.json'
 import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
@@ -8,6 +9,8 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("azezaez");
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [focusedInput, setFocusedInput] = useState(null);
 
@@ -27,11 +30,12 @@ const Signup = () => {
       return;
     }
 
-    axios.post('http://localhost:3000/auth/signup', {
-      firstName: firstName,
-      lastName: lastName,
+    axios.post(`http://${IP}:8080/auth/signup`, {
+      firstname: firstName,
+      lastname: lastName,
       password: password,
       email: email,
+      image:image
     })
       .then((result) => {
         console.log('Signup successful:', result.data);
@@ -109,6 +113,7 @@ const Signup = () => {
             onFocus={() => handleFocus('confirmPassword')}
             onBlur={handleBlur}
           />
+          
 
           <TouchableOpacity style={styles.loginButton} onPress={signup}>
             <Text style={styles.buttonText}>Sign Up</Text>

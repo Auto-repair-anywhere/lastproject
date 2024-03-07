@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, ImageBackground, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import axios from 'axios';
+import {IP} from '../../Backend/ip.json'
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,19 +14,24 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', { email, password });
-
-      await AsyncStorage.setItem('userId', response.data.iduser.toString());
-
-      console.log('Login successful:', response.data);
-      navigation.navigate('Home');
+      await axios.post(`http://${IP}:8080/auth/login`, { email, password }).then(async(res)=>{
+        
+      if (res.data.user.iduser !== undefined) {
+        await AsyncStorage.setItem('userId', res.data.user.iduser);
+        console.log('Login successful:', response.data);
+        navigation.navigate('Home');
+      } else {
+        console.log('User ID is undefined in the response data.');
+      }
+      }).catch((err)=>console.log(err))
+  
     } catch (error) {
       console.log('Login error:', error);
     }
   };
+  
 
   return (
     <KeyboardAvoidingView
