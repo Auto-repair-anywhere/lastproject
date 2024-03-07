@@ -12,7 +12,7 @@ const Nav=()=>{
            
 
       <View style={styles.bottomnav}>
-      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('HomeIcon')}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Home')}>
         <Icon name="home" size={30} color="black" />
         <Text style={styles.iconText}>Home </Text>
       </TouchableOpacity>
@@ -32,7 +32,7 @@ const Nav=()=>{
         <Text style={styles.iconText}>Workshop </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('ChatIcon')}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('chatlist')}>
         <Icon name="comments" size={30} color="black" />
         <Text style={styles.iconText}>Chat </Text>
       </TouchableOpacity>
@@ -48,11 +48,12 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       alignItems: 'center',
       width: '100%',
-      marginTop:40,
-      height:100,
+      marginTop:20,
+      height:65,
       marginBottom:0,
       backgroundColor:"white",
       borderRadius:30,
+      marginBottom:10
     },
    
    
