@@ -2,11 +2,15 @@ const express = require('express')
 const PORT = 8080
 const app = express()
 const cors = require ('cors');
+const paymentRouter=require('../Backend/Routes/payment')
+const professionalRouter=require('../Backend/Routes/professional')
+
 app.use(cors())
 app.use(express.json())
-const {connection} =require('../backend/db/index')
-//connection.sync({alter: true})
-
+const {connection} =require('../Backend/db/index')
+// connection.sync({alter: true})
+app.use('/payment',paymentRouter)
+app.use('/req',professionalRouter)
 
 app.use(express.static(__dirname + '/../client/dist'))
 //app.use("/",Route)

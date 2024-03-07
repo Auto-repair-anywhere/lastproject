@@ -4,7 +4,7 @@ const mysql = require('mysql2')
 
 
 
-const connection = new Sequelize('finalproject', 'root', '1234', {
+const connection = new Sequelize('finalproject', 'root', 'nour123', {
 
     host:'localhost',
     dialect:'mysql'
@@ -153,10 +153,6 @@ const Request = connection.define('request', {
     allowNull: false,
   },
   milage: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  time: {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
