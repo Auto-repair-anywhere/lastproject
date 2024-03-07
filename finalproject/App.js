@@ -1,8 +1,11 @@
+
 import React from 'react';
 import { View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
+// import Payment from './components/Payment'; 
+import Professional from './components/Professional'
 import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
@@ -28,6 +31,7 @@ const LogoTitle = () => (
 const App = () => {
   return (
     <NavigationContainer>
+
      <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
