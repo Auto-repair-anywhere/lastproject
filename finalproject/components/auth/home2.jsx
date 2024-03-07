@@ -15,9 +15,9 @@ const Screenn = () => {
 
       <TouchableOpacity
         style={styles.centeredButton}
-        onPress={() => navigation.navigate('comASS')}
+        onPress={() => navigation.navigate('Cassistance')}
       >
-        <Text style={styles.centeredButtonText}>Comunity Assistance</Text>
+        <Text style={styles.centeredButtonText}>Community Assistance</Text>
       </TouchableOpacity></View>
 
     <View style={styles.box} >
@@ -28,13 +28,12 @@ const Screenn = () => {
 
       <TouchableOpacity
         style={styles.centeredButton}
-        onPress={() => navigation.navigate('professionalass')}
+        onPress={() => navigation.navigate('proServ')}
       >
         <Text style={styles.centeredButtonText}>Profssional Assistance</Text>
       </TouchableOpacity>
     </View>
 
-   <Nav/>
     </View>
   );
 };
@@ -46,6 +45,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'black',
+    backgroundColor: 'white',
+
   },
   centeredButton: {
     backgroundColor: 'rgb(58,159,253)',

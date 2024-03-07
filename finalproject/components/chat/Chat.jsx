@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, TextInput, ScrollView } from 'react-native';
-import * as ImagePicker from 'expo-image-picker'; 
+import * as ImagePicker from 'expo-image-picker';
 
 const ChatDetail = () => {
   const [message, setMessage] = useState('');

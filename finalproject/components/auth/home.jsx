@@ -34,7 +34,6 @@ const HomeScreen = () => {
       </TouchableOpacity>
     </View>
 
-   <Nav/>
     </View>
   );
 };
@@ -46,6 +45,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'black',
+    backgroundColor: 'white',
+
    
     
   },
