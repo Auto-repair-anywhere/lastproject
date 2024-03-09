@@ -1,59 +1,101 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import axios from 'axios';
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import axios from 'axios'
 
-const Professional = () => {
+const Professional = ({ id, navigation }) => { // Assuming `id` and `navigation` are passed as props
   const [requests, setRequests] = useState([]);
 
   // useEffect(() => {
-  //   axios.get(`http://localhost:8080/req/getall/${1}`)
+  //   axios.get(`http://localhost:8080/req/getall/${id}`)
   //     .then(result => {
   //       setRequests(result.data);
+  //       console.log(requests);
   //     })
   //     .catch(err => {
-  //       console.log("Error fetching data:", err);
+  //       console.log("Error fetching :", err);
   //     });
-  // }, []);
+  // },[]); // Ensure useEffect runs when `id` changes
   
-
   return (
     <View style={styles.container}>
-      {/* {requests.map(request => ( */}
+      <Text style={styles.title}>Requests List</Text>
+      {/* {requests.map((e) => ( */}
         <View style={styles.requestContainer}>
-          <Text>ID: </Text>
-          <Text>First Name: </Text>
-          <Text>Last Name: </Text>
-          <Text>Problem: </Text>
+          <View style={styles.requestInfo}>
+            <View style={styles.requestIdContainer}>
+              <Text style={styles.requestId}>REQUEST ID: 1</Text>
+            </View>
+            <Text style={styles.requestDetail}>First Name:edem</Text>
+            <Text style={styles.requestDetail}>Last Name:edem</Text>
+            <Text style={styles.requestDetail}>Category:Tire </Text>
+            <Text style={styles.requestDetail}>Date: 20-11-2021</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RequestDetail')}>
+              <Text style={styles.viewDetails}>View Details</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       {/* ))} */}
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20, 
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#000',
   },
   requestContainer: {
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 20, 
-    shadowColor: '#000', 
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    marginBottom: 20,
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 20, 
-    width: '100%',
+  },
+  requestInfo: {
+    flex: 1,
+  },
+  requestIdContainer: {
+    backgroundColor: 'rgb(58,159,253)',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 10,
+  },
+  requestId: {
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  requestDetail: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#000',
+  },
+  button: {
+    backgroundColor: 'rgb(58,159,253)',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    width:130
+  },
+  viewDetails: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
-
-
 
 export default Professional;
