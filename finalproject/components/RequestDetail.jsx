@@ -1,53 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
+import {IP} from '../ip.json'
 
 const RequestDetail = () => {
   const [requests, setRequests] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`http://localhost:8080/req/getall/${1}`);
-  //       setRequests(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://${IP}:8080/req/getall/${1}`);
+        setRequests(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
-      {/* {requests.map((e, index) => ( */}
+      {requests.map((e) => (
         <View style={styles.requestDetails}>
-          <Text style={styles.label}>Request ID:</Text>
-          {/* {e.idrequest} */}
-          <Text style={styles.label}>Brand:</Text>
-          {/* {e.brand} */}
-          <Text style={styles.label}>Problem:</Text>
-          {/* {e.problem} */}
-          <Text style={styles.label}>Description:</Text>
-          {/* {e.description} */}
-          <Text style={styles.label}>More Description:</Text>
-          {/* {e.moredescription} */}
-          <Text style={styles.label}>Milage:</Text>
-          {/* {e.milage} */}
-          <Text style={styles.label}>Status:</Text>
-          {/* {e.status} */}
-          <Text style={styles.label}>Image:</Text>
-          {/* {e.imageurl} */}
-          <Text style={styles.label}>Latitude:</Text>
-          {/* {e.latitude} */}
-          <Text style={styles.label}>Longitude:</Text>
-          {/* {e.longitude} */}
-          <Text style={styles.label}>First Name:</Text>
-          {/* {e.fistname} */}
-          <Text style={styles.label}>Last Name:</Text>
-          {/* {e.lastname} */}
+          <Text style={styles.label}>Request ID: {e.idrequest}</Text>
+          <Text style={styles.label}>Brand: {e.brand}</Text>
+          <Text style={styles.label}>Problem:{e.problem}</Text>
+          <Text style={styles.label}>Description:{e.description}</Text>
+          <Text style={styles.label}>More Description:{e.moredescription}</Text>
+          <Text style={styles.label}>Milage:{e.milage}</Text>
+          <Text style={styles.label}>Status:{e.status}</Text>
+          <Text style={styles.label}>Image:{e.imageurl}</Text>
+          <Text style={styles.label}>Latitude:{e.latitude}</Text>
+          <Text style={styles.label}>Longitude:{e.longitude}</Text>
+          <Text style={styles.label}>First Name:{e.fistname}</Text>
+         <Text style={styles.label}>Last Name:{e.lastname}</Text>
+     
         </View>
-      {/* ))} */}
+       ))}
     </View>
   );
 };

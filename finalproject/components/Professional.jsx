@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import axios from 'axios'
+import {IP} from '../ip.json'
+import { useNavigation } from '@react-navigation/native';
 
-const Professional = ({ id, navigation }) => { // Assuming `id` and `navigation` are passed as props
+const Professional = () => { // Assuming `id` and `navigation` are passed as props
   const [requests, setRequests] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8080/req/getall/${id}`)
-  //     .then(result => {
-  //       setRequests(result.data);
-  //       console.log(requests);
-  //     })
-  //     .catch(err => {
-  //       console.log("Error fetching :", err);
-  //     });
-  // },[]); // Ensure useEffect runs when `id` changes
+  const navigation = useNavigation();
+  
+  useEffect(() => {
+    axios.get(`http://${IP}:8080/req/getall/${1}`)
+      .then(result => {
+        setRequests(result.data);
+        console.log(requests);
+      })
+      .catch(err => {
+        console.log("Error fetching :", err);
+      });
+  },[]); // Ensure useEffect runs when `id` changes
   
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Requests List</Text>
-      {/* {requests.map((e) => ( */}
+      {requests.map((e) => (
         <View style={styles.requestContainer}>
           <View style={styles.requestInfo}>
             <View style={styles.requestIdContainer}>
-              <Text style={styles.requestId}>REQUEST ID: 1</Text>
+              <Text style={styles.requestId}>REQUEST ID:{1} </Text>
             </View>
-            <Text style={styles.requestDetail}>First Name:edem</Text>
-            <Text style={styles.requestDetail}>Last Name:edem</Text>
-            <Text style={styles.requestDetail}>Category:Tire </Text>
+            <Text style={styles.requestDetail}>First Name:{e.user.firstname}</Text>
+            <Text style={styles.requestDetail}>Last Name:{e.user.lastname}</Text>
+            <Text style={styles.requestDetail}>Category:{e.problem} </Text>
             <Text style={styles.requestDetail}>Date: 20-11-2021</Text>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RequestDetail')}>
               <Text style={styles.viewDetails}>View Details</Text>
             </TouchableOpacity>
           </View>
         </View>
-      {/* ))} */}
+      ))} 
     </View>
   );
 };
