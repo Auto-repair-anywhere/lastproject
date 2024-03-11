@@ -1,20 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, TextInput, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
+import {IP} from '../../Backend/ip.json'
 
-const ChatDetail = () => {
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { id: 1, text: 'Hello, how can I help you?', sender: 'recipient', timestamp: '10:30 AM' },
+const ChatDetail = ({route}) => {
   
-  { id: 2, text: 'Hello, how can I help you?', sender: 'recipient', timestamp: '10:30 AM' },
-]);
+    const { senderid,user2Id } = route.params;
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [convid, setconvid] = useState(1);
+  
+  useEffect(() => {
+   getconvid()
+    fetchMessagesBetweenUsers();
+  }, []);
 
-  const handleSend = () => {
+  
+  const getconvid =  async()=>{
+    try{
+      const response = await axios.get(`http://${IP}:8080/chat/${senderid}/${user2Id}`);
+      setconvid(response.data.id);
+   
+    } catch (error) {
+      console.error('Error ', error);
+    }
+  };
+
+    
+  
+
+  const fetchMessagesBetweenUsers = async () => {
+    try {
+
+      const response = await axios.get(`http://${IP}:8080/chat/messages/${senderid}/${user2Id}/${convid}`);
+      setMessages(response.data);
+      console.log( response.data)
+    } catch (error) {
+      console.error('Error fetching messages between users:', error);
+    }
+  };
+
+  const handleSend = async () => {
     if (!message.trim()) return;
-    const newMessage = { id: messages.length + 1, text: message, sender: 'sender', timestamp: getTime() };
+    const newMessage = { id: messages.length + 1, text: message, sender: senderid, timestamp: getTime() };
     setMessages([...messages, newMessage]);
     setMessage('');
+
+    // Send message to the server
+    try {
+      await axios.post(`http://${IP}:8080/chat/messages/send`, { text:message,
+      senderId:senderid,
+      conversationId:convid,
+      recipientId:user2Id});
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
   const handleImageSend = async () => {
@@ -25,10 +66,16 @@ const ChatDetail = () => {
     });
 
     if (!result.cancelled) {
-      
-      const imageUrl = result.uri; // Example: URL of the uploaded image
-      const newMessage = { id: messages.length + 1, image: imageUrl, sender: 'sender', timestamp: getTime() };
+      const imageUrl = result.uri;
+      const newMessage = { id: messages.length + 1, image: imageUrl, sender: senderid, timestamp: getTime() };
       setMessages([...messages, newMessage]);
+
+      // Send image to the server
+      try {
+        await axios.post(`http://${IP}:8080/chat`, { image: imageUrl });
+      } catch (error) {
+        console.error('Error sending image:', error);
+      }
     }
   };
 
@@ -41,7 +88,7 @@ const ChatDetail = () => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.chatContainer}>
         {messages.map((msg) => (
-          <View key={msg.id} style={[styles.messageContainer, msg.sender === 'sender' && styles.senderMessage]}>
+          <View key={msg.id} style={[styles.messageContainer, msg.sender === senderid && styles.senderMessage]}>
             {msg.text && <Text style={styles.messageText}>{msg.text}</Text>}
             {msg.image && <Image source={{ uri: msg.image }} style={styles.image} />}
             <Text style={styles.timestamp}>{msg.timestamp}</Text>
