@@ -35,7 +35,7 @@ const App = () => {
     <NavigationContainer>
 
      <Stack.Navigator
-        initialRouteName="Professional"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -50,8 +50,8 @@ const App = () => {
         }}
       >
         <Stack.Screen
-          name="Professional"
-          component={Professional}
+          name="Home"
+          component={HomeScreen}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
         <Stack.Screen
@@ -95,13 +95,18 @@ const App = () => {
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
           <Stack.Screen
-          name="professional"
+          name="Professional"
           component={Professional}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
           <Stack.Screen
           name="RequestDetail"
           component={RequestDetail}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="Payment"
+          component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
       </Stack.Navigator>
