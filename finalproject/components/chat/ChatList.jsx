@@ -58,7 +58,7 @@ const ChatList = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <Pressable
       style={styles.itemContainer}
-      onPress={() => navigation.navigate('Chat', {senderid:1,user2Id:item.id})}
+      onPress={() => navigation.navigate('Chat', {user1Id:1,user2Id:item.id})}
     >
       <Image source={require('../../assets/avatar.png')} style={styles.avatar} />
       <View style={styles.chatInfo}>

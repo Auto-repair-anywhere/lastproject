@@ -77,34 +77,68 @@ const getAllConversationsForUser = async (req, res) => {
     }
 };
 
-const getAllMessagesBetweenUsers = async (req, res) => {
-    try {
-        const { userId1, userId2, conversationId } = req.params;
+// const getAllMessagesBetweenUsers = async (req, res) => {
+//     try {
+//         const { userId1, userId2, conversationId } = req.params;
 
         
-        const conversation = await Conversation.findByPk(conversationId);
+//         const conversation = await Conversation.findByPk(conversationId);
+//         if (!conversation) {
+//             return res.status(404).json({ error: 'Conversation not found' });
+//         }
+
+        
+//         const user1 = await User.findByPk(userId1);
+//         const user2 = await User.findByPk(userId2);
+//         if (!user1 || !user2) {
+//             console.log(user1, user2);
+//             return res.status(404).json({ error: 'User(s) not found' });
+//         }
+
+       
+//         const messages = await Message.findAll({ 
+//             where: { 
+//                 conversationId,
+//                 senderId: [userId1, userId2]
+//             }
+//         });
+
+        
+//         return res.status(200).json(messages);
+//     } catch (error) {
+//         console.error('Error getting messages between users in conversation:', error);
+//         return res.status(500).json({ error: 'Internal server error' });
+//     }
+// };
+
+const getAllMessagesBetweenUsers = async (req, res) => {
+    try {
+        const { userId1, userId2 } = req.params;
+
+        // Find the conversation between the two users
+        const conversation = await Conversation.findOne({
+            where: {
+                user1Id: userId1,
+                user2Id: userId2,
+            }
+        });
+
         if (!conversation) {
+            // Conversation not found
             return res.status(404).json({ error: 'Conversation not found' });
         }
 
-        
-        const user1 = await User.findByPk(userId1);
-        const user2 = await User.findByPk(userId2);
-        if (!user1 || !user2) {
-            console.log(user1,user2)
-            return res.status(404).json({ error: 'User(s) not found' });
-        }
-       
-        const messages = await Message.findAll({ 
-            where: { 
-                conversationId,
-                senderId: [userId1, userId2]
-            }
+        // Retrieve all messages in the conversation
+        const messages = await Message.findAll({
+            where: {
+                conversationId: conversation.id
+            },
+            order: [['createdAt', 'ASC']] // Optionally, you can order messages by creation time
         });
 
         return res.status(200).json(messages);
     } catch (error) {
-        console.error('Error getting messages between users in conversation:', error);
+        console.error('Error fetching messages between users:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };

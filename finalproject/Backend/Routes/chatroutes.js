@@ -26,7 +26,7 @@ const {
 } = require('../controller/chat');
 
 // Route to get all messages between 2 users
-router.get('/messages/:userId1/:userId2/:conversationId', getAllMessagesBetweenUsers);
+router.get('/messages/:userId1/:userId2', getAllMessagesBetweenUsers);
 
 // Route to get all conversations for a specific user
 router.get('/:userId/conversations', getAllConversationsForUser);
