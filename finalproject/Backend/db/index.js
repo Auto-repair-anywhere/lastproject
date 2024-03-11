@@ -62,7 +62,7 @@ const User = connection.define('user', {
   },
   image: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
   },
 }, {
   freezeTableName: true,

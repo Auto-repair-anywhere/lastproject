@@ -1,23 +1,21 @@
-const db = require('../../database/Models/User')
+const connection = require('../db/index.js')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config()
-const secretKey = process.env.JWT_SECRET;
+const secretKey =process.env.JWT_SECRET
 console.log("secret",secretKey)
 
 
 const signupUser = async (req, res) => {
     try {
-        const { firstName, lastName,password, email, age, role } = req.body
+        const { firstname, lastname,email,password,image} = req.body
 
-    const newUser = await db.User.create({
-        firstName:firstName,
-        lastName:lastName,
-        password: await bcrypt.hash(password, 15),
+    const newUser = await connection.User.create({
+        firstname:firstname,
+        lastname:lastname,
         email:email,
-        age:age,
-        role: role, 
-        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        password: await bcrypt.hash(password, 10),
+        image: image,
         })
         return res.status(200).json(newUser)
     } catch (err) {
@@ -28,7 +26,7 @@ const loginUser = async (req, res) => {
     try {
         const email = req.body.email
         const password = req.body.password
-        const user = await db.User.findOne({
+        const user = await connection.User.findOne({
             where: {email:email}
         })
         if (!user) {
@@ -48,10 +46,3 @@ const loginUser = async (req, res) => {
     }
 }
 module.exports={ signupUser ,loginUser}
-
-
-   
-           
-
-           
-             

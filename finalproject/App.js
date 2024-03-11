@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import 'react-native-gesture-handler';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Chat from './components/chat/Chat.jsx'
+import ChatList from './components/chat/ChatList.jsx'
+import Login from './components/auth/login.jsx';
+import Signup from './components/auth/signup.jsx';
+import HomeScreen from './components/auth/home.jsx';
+import Getcar from './components/gitcar/Getcar.jsx';
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>fadit</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+
+      <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Getcar" component={Getcar} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
+        
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
