@@ -209,23 +209,24 @@ const ChatDetail = ({ route }) => {
   const [convid, setConvid] = useState(1);
 
   useEffect(() => {
-    getConvid();
+    
     fetchMessagesBetweenUsers();
   }, []);
 
-  const getConvid = async () => {
-    try {
-      const response = await axios.get(`http://${IP}:8080/chat/${senderid}/${user2Id}`);
-      setConvid(response.data.id);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  // const getConvid = async () => {
+  //   try {
+  //     const response = await axios.get(`http://${IP}:8080/chat/${senderid}/${user2Id}`);
+  //     setConvid(response.data.id);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
 
   const fetchMessagesBetweenUsers = async () => {
     try {
       const response = await axios.get(`http://${IP}:8080/chat/messages/${senderid}/${user2Id}`);
       setMessages(response.data);
+      console.log(senderid, user2Id)
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
