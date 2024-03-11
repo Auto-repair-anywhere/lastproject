@@ -3,9 +3,6 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
-// import Payment from './components/Payment'; 
-import Professional from './components/Professional'
 import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
@@ -17,6 +14,11 @@ import Service from './components/auth/servicepage.jsx';
 import Servicee from './components/auth/servicepage.jsx';
 import ServiceePro from './components/auth/servicepro.jsx';
 import Tire from './components/auth/tirePanne.jsx';
+import Professional from './components/Professional.jsx';
+import RequestDetail from './components/RequestDetail.jsx';
+import Payment from './components/Payment.jsx'
+
+
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -90,6 +92,21 @@ const App = () => {
         <Stack.Screen
           name="Cassistance"
           component={Servicee}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="Professional"
+          component={Professional}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="RequestDetail"
+          component={RequestDetail}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="Payment"
+          component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
       </Stack.Navigator>
