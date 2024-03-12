@@ -1,16 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Chat from './components/chat/Chat.jsx'
-import ChatList from './components/chat/ChatList.jsx'
-import Login from './components/auth/login.jsx';
-import Signup from './components/auth/signup.jsx';
-import HomeScreen from './components/auth/home.jsx';
 import Getcar from './components/gitcar/Getcar.jsx';
-const Stack = createStackNavigator();
 import { View, Image } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
