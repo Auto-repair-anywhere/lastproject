@@ -33,7 +33,6 @@ const HomeScreen = () => {
         <Text style={styles.centeredButtonText}>Road Map Assistance</Text>
       </TouchableOpacity>
     </View>
-
     </View>
   );
 };
@@ -45,10 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'black',
-    backgroundColor: 'white',
-
-   
-    
   },
   centeredButton: {
     backgroundColor: 'rgb(58,159,253)',

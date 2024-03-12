@@ -12,6 +12,7 @@ const Nav=()=>{
            
 
       <View style={styles.bottomnav}>
+
       <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Home')}>
         <Icon name="home" size={30} color="black" />
         <Text style={styles.iconText}>Home </Text>
