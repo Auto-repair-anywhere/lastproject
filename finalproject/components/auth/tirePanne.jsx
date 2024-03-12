@@ -1,62 +1,59 @@
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RadioButton } from 'react-native-paper';
 
 const Tire = () => {
   const navigation = useNavigation();
   const [checkedTire, setCheckedTire] = useState(null);
 
   const handleTirePress = (tireNumber) => {
-    setCheckedTire(tireNumber);
-    console.log(`Tire ${tireNumber} checked`);
-    // Add your logic here to handle the check state for each tire
+    const tireName = getTireName(tireNumber);
+    setCheckedTire(tireName);
+    console.log(`Tire ${tireName} checked`);
   };
 
-  const RadioButtonCorner = ({ position }) => (
-    <TouchableOpacity onPress={() => handleTirePress(position)}>
+
+
+  const RadioButtonCorner = ({ position, name }) => (
+    <TouchableOpacity onPress={() => handleTirePress(name)}>
       <View style={{ position: 'absolute', ...position, flexDirection: 'row', alignItems: 'center' }}>
         <RadioButton
-          value={position}
-          status={checkedTire === position ? 'checked' : 'unchecked'}
-          onPress={() => handleTirePress(position)}
+          value={name}
+          status={checkedTire === name ? 'checked' : 'unchecked'}
+          color={'blue'}
+          onPress={() => handleTirePress(name)}
         />
         <Text style={{ marginLeft: 5 }}>Check</Text>
       </View>
     </TouchableOpacity>
   );
-  
-
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>WHICH TIRE </Text>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
+      <Text style={{marginTop:5}}>WHICH TIRE </Text>
 
-      <View style={{ position: 'relative' }}>
+      <View style={{ position: 'relative',marginTop:30 }}>
         <Image
-          source={{ uri: 'https://cdn3.vectorstock.com/i/1000x1000/10/97/blue-car-top-view-icon-isometric-3d-style-vector-11241097.jpg' }}
-          style={{ width: 200, height: 300, marginTop: 20 }}
+          source={require('../../assets/blue-car-top-view-icon-isometric-3d-style-vector-11241097.jpg')}
+          style={{ width: 200, height: 300, marginTop: 10 }}
         />
 
-        {/* Radio buttons for each tire */}
-        <RadioButtonCorner position={{ top: -10, left: -30 }} />
-        <RadioButtonCorner position={{ top: -10, right: -30 }} />
-        <RadioButtonCorner position={{ bottom: 350, left: -30 }} />
-        <RadioButtonCorner position={{ bottom: 350, right: -30 }} />
+        <RadioButtonCorner position={{ top: -10, left: -40 } } name={"l1"} />
+        <RadioButtonCorner position={{ top: -10, right: -40 } } name={"r1"} />
+        <RadioButtonCorner position={{ bottom: 300, left: -40 } }  name={"r2"}/>
+        <RadioButtonCorner position={{ bottom: 300, right: -40 } } name={"l2"} />
       </View>
 
-    <View>
-      <Text>do you have a spare tire</Text>
+      <View style={{marginTop:30}}>
+        <Text>do you have a spare tire</Text>
         <TouchableOpacity>
           <Text>yes</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text>no</Text>
         </TouchableOpacity>
-
-    </View>
-
-
+      </View>
     </View>
   );
 };

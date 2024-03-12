@@ -67,7 +67,7 @@ marginBottom:20
     
   },
   box:{
-    width:"96%",
+    width:"90%",
     alignItems: 'center',
     justifyContent: 'center',
     border:2,
@@ -76,8 +76,9 @@ marginBottom:20
     marginTop:9,
     borderRadius:20,
     backgroundColor:"white",
-    padding:2
-
+    padding:2,
+    borderWidth: 1, 
+    borderColor: 'black',  
   },
  
   centeredImage: {
@@ -86,7 +87,8 @@ marginBottom:20
     marginBottom: 20,
     borderRadius: 20,
     margin:"auto",
-    marginTop:15
+    marginTop:15,
+    resizeMode:"contain"
   },
   centeredText: {
     fontSize: 16,

@@ -3,8 +3,35 @@ import { View, Text, TextInput, Image, TouchableOpacity, ImageBackground, StyleS
 import axios from 'axios';
 import {IP} from '../../Backend/ip.json'
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 
 const Signup = () => {
+
+
+
+
+  const handleImageSend = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.cancelled) {
+        const imageUrl = result.uri;
+        setImage(imageUrl);
+        console.log(imageUrl);
+      }
+    } catch (error) {
+      console.error('Error selecting image:', error);
+    }
+  };
+
+
+
+
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -113,17 +140,9 @@ const Signup = () => {
             onFocus={() => handleFocus('confirmPassword')}
             onBlur={handleBlur}
           />
-           <TextInput
-            style={[
-              styles.input,
-              focusedInput === 'image' && styles.focusedInput,
-            ]}
-            placeholder="image"
-            onChangeText={(text) => setImage(text)}
-            onFocus={() => handleFocus('image')}
-            onBlur={handleBlur}
-          />
-
+           <TouchableOpacity style={styles.loginButton} onPress={signup}>
+            <Text style={styles.buttonText} onPress={handleImageSend}>choose your profile image</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.loginButton} onPress={signup}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>

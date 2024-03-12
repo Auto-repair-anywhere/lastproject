@@ -16,6 +16,7 @@ import Tire from './components/auth/tirePanne.jsx';
 import Professional from './components/Professional.jsx';
 import RequestDetail from './components/RequestDetail.jsx';
 import Payment from './components/Payment.jsx'
+import ProHome from './components/auth/professionalHome.jsx';
 
 
 const Stack = createStackNavigator();
@@ -35,13 +36,13 @@ const App = () => {
   return (
     <NavigationContainer>
      <Stack.Navigator
-        initialRouteName="tire" 
+        initialRouteName="Home" 
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
-            height: 140, // Adjust the height as needed
-            elevation: 0, // Remove shadow on Android
-            shadowOpacity: 0, // Remove shadow on iOS
+            height: 140, 
+            elevation: 0, 
+            shadowOpacity: 0, 
           },
           headerTintColor: 'black', // Adjust text color
           headerTitleStyle: {
@@ -109,6 +110,12 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+          <Stack.Screen
+          name="ProHome"
+          component={ProHome}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+       
        
       </Stack.Navigator>
       <Nav/>
