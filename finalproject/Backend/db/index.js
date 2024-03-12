@@ -4,7 +4,7 @@ const mysql = require('mysql2')
 
 
 
-const connection = new Sequelize('finalproject', 'root', 'nour123', {
+const connection = new Sequelize('finalproject', 'root', 'root', {
 
     host:'localhost',
     dialect:'mysql'

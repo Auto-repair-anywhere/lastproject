@@ -9,7 +9,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("azezaez");
+  const [image, setImage] = useState("");
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [focusedInput, setFocusedInput] = useState(null);
@@ -42,7 +42,7 @@ const Signup = () => {
         navigation.navigate('Login');
       })
       .catch((err) => {
-        console.log('Error:', err);
+        console.log('a:', err);
       });
   };
 
@@ -113,7 +113,16 @@ const Signup = () => {
             onFocus={() => handleFocus('confirmPassword')}
             onBlur={handleBlur}
           />
-          
+           <TextInput
+            style={[
+              styles.input,
+              focusedInput === 'image' && styles.focusedInput,
+            ]}
+            placeholder="image"
+            onChangeText={(text) => setImage(text)}
+            onFocus={() => handleFocus('image')}
+            onBlur={handleBlur}
+          />
 
           <TouchableOpacity style={styles.loginButton} onPress={signup}>
             <Text style={styles.buttonText}>Sign Up</Text>
