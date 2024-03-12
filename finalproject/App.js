@@ -35,8 +35,9 @@ const LogoTitle = () => (
 const App = () => {
   return (
     <NavigationContainer>
+       
      <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="getcar"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -50,6 +51,11 @@ const App = () => {
           },
         }}
       >
+         <Stack.Screen
+          name="getcar"
+          component={Getcar}
+        />
+      
         <Stack.Screen
           name="Home"
           component={HomeScreen}
