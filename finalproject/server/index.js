@@ -4,20 +4,21 @@ const app = express()
 const cors = require ('cors');
 const paymentRouter=require('../Backend/Routes/payment')
 const professionalRouter=require('../Backend/Routes/professional')
+const chatrouter =  require('../Backend/Routes/chatroutes')
 const {connection} =require('../Backend/db/index')
 const carplate=require('../Backend/Routes/findcar')
 const auth =require('../Backend/Routes/auth.route')
 
-
-
 app.use(cors())
 app.use(express.json())
+connection.sync()
+
 
 app.use('/auth',auth)
 app.use('/findcar',carplate)
 app.use('/payment',paymentRouter)
 app.use('/req',professionalRouter)
-
+app.use('/chat',chatrouter)
 
 app.use(express.static(__dirname + '/../client/dist'))
 
