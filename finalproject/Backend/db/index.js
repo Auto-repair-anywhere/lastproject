@@ -14,6 +14,20 @@ connection.authenticate()
         console.error(err);
     });
 
+const connection = new Sequelize('finalproject', 'root', 'root', {
+
+    host:'localhost',
+    dialect:'mysql'
+})
+
+connection.authenticate() 
+.then(()=>{
+    console.log("connection has been successfully establissshed");
+})
+.catch((err)=>{
+    console.log(err);
+})
+
 const Admin = connection.define('admin', {
     id: {
         type: DataTypes.INTEGER,

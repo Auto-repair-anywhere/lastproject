@@ -10,35 +10,18 @@ const ServiceePro = () => {
   
     return (
       <View style={styles.container}>
-        <Swiper style={styles.swiperContainer} showsButtons={false} autoplay={true}>
-          <View style={styles.slide}>
+        <View style={styles.swiperContainer} showsButtons={false} autoplay={true}>
             
               <Image
                 source={require('../../assets/bring.png')}
                 style={styles.slideImage}
               />
-          
+        
           </View>
   
-          <View style={styles.slide}>
-           
-              <Image
-                source={{ uri: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
-                style={styles.slideImage}
-              />
-           
-          </View>
-  
-          <View style={styles.slide}>
-            <Image
-                source={{ uri: 'https://as2.ftcdn.net/v2/jpg/04/28/08/29/1000_F_428082937_ggRPhYMGv4ljGKOpzW9G1LPQQm6EGFum.jpg' }}
-                style={styles.slideImage}
-              />
-            
-          </View>
-        </Swiper>
+         
 
-      {/* Icons */}
+          <Text style={styles.iconTextt}>Get Your Service </Text>
       <View style={styles.iconsContainer}>
         <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Home')}>
         <Image
@@ -96,7 +79,7 @@ const styles = StyleSheet.create({
   },
   swiperContainer: {
     height: '50%',
-    marginTop: 20,
+    marginTop: 5,
   },
   slide: {
     flex: 1,
@@ -106,15 +89,14 @@ const styles = StyleSheet.create({
   slideImage: {
     width: '100%',
     height: '100%',
+    resizeMode:'contain'
     
   },
   Image: {
     width: 100,
-    height:100,
-    marginLeft:28,
+    height: 95,
+    marginLeft:25,
     marginTop:10
-
-    
   },
   iconsContainer: {
     display: 'flex',
@@ -134,6 +116,14 @@ const styles = StyleSheet.create({
     fontSize:15
     
   },
+  iconTextt: {
+    marginTop: 10,
+    fontWeight:"bold",
+    marginLeft:28,
+    fontSize:25
+    
+  },
+  
 });
 
 export default ServiceePro
