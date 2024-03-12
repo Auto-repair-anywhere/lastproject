@@ -3,7 +3,7 @@ import { View, TextInput, Button, Alert, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
-
+import IP from '../../Backend/ip.json'
 const Getcar = () => {
   const [firstSection, setFirstSection] = useState('');
   const [secondSection, setSecondSection] = useState('');
@@ -13,10 +13,10 @@ const Getcar = () => {
 
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
-    axios.post("http://localhost:8080/findcar/car-info",
+    axios.post(`${IP}/findcar/car-info`,
     {
     licensePlate:inputValue,
-    username:"aaaaaaaaa"
+    username:"issam"
     })
     .then((res)=>{
     setCar(res.data)

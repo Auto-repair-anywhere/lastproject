@@ -70,6 +70,7 @@ const Signup = () => {
             onChangeText={(text) => setFirstName(text)}
             onFocus={() => handleFocus('firstName')}
             onBlur={handleBlur}
+            value={firstName}
           />
           <TextInput
             style={[

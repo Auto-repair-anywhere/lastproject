@@ -1,6 +1,6 @@
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
-
+const connection = require('../db/index.js')
 const getCarInfoFromLicensePlate = async (req, res) => {
   const { licensePlate, username } = req.body;
 
@@ -15,6 +15,7 @@ const getCarInfoFromLicensePlate = async (req, res) => {
 </soap:Envelope>`;
 
   try {
+    
     const response = await axios.post('http://www.regcheck.org.uk/api/reg.asmx', soapRequest, {
       headers: {
         'Content-Type': 'text/xml; charset=utf-8',
@@ -32,8 +33,12 @@ const getCarInfoFromLicensePlate = async (req, res) => {
       const description = vehicleJson.Description;
       const fuelType = vehicleJson.FuelType;
       const imageUrl = vehicleJson.ImageUrl;
-
-      res.json({ description, fuelType, imageUrl });
+      const car =  connection.Car.create({
+        carname:description,
+        fueltype:fuelType,
+        carimage:imageUrl
+      })
+      res.send({ description, fuelType, imageUrl });
     });
   } catch (err) {
     console.error(err);
