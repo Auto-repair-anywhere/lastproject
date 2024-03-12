@@ -12,6 +12,7 @@ const Nav=()=>{
            
 
       <View style={styles.bottomnav}>
+
       <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Home')}>
         <Icon name="home" size={30} color="black" />
         <Text style={styles.iconText}>Home </Text>
@@ -22,7 +23,7 @@ const Nav=()=>{
         <Text style={styles.iconText}>Spare Parts </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('RequestIcon')}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Professional')}>
         <Icon name="clipboard" size={30} color="black" />
         <Text style={styles.iconText}>Request </Text>
       </TouchableOpacity>

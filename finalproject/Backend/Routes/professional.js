@@ -3,6 +3,6 @@ const {getAllRequests}=require('../controller/professional')
 
 const professionalRouter=express.Router()
 
-professionalRouter.get('/getall/:idrequest',getAllRequests)
+professionalRouter.get('/getall/:id',getAllRequests)
 
 module.exports=professionalRouter

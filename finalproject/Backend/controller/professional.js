@@ -5,7 +5,7 @@ const getAllRequests = async (req,res) => {
     try {
         const requests = await Request.findAll({
             where: {
-                idrequest : req.params.idrequest
+                idrequest : req.params.id
             },
             include: [
                 {

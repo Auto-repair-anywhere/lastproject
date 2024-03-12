@@ -5,19 +5,22 @@ const cors = require ('cors');
 const paymentRouter=require('../Backend/Routes/payment')
 const professionalRouter=require('../Backend/Routes/professional')
 const chatrouter =  require('../Backend/Routes/chatroutes')
+const {connection} =require('../Backend/db/index')
+const carplate=require('../Backend/Routes/findcar')
+const auth =require('../Backend/Routes/auth.route')
 
 app.use(cors())
-const auth =require('../Backend/Routes/auth.route')
 app.use(express.json())
-const {connection} =require('../Backend/db/index')
 connection.sync()
+
+
+app.use('/auth',auth)
+app.use('/findcar',carplate)
 app.use('/payment',paymentRouter)
 app.use('/req',professionalRouter)
 app.use('/chat',chatrouter)
 
 app.use(express.static(__dirname + '/../client/dist'))
-
-app.use('/auth',auth)
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`)

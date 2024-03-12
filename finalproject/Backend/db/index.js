@@ -66,6 +66,31 @@ const User = connection.define('user', {
     timestamps: false
 });
 
+const Car = connection.define('Car', {
+  idcar: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  carname: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+  },
+  fueltype: {
+    type: DataTypes.STRING(500),
+    allowNull: false,
+  },
+  carimage: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+}, 
+{
+  freezeTableName: true,
+  timestamps: false,
+});
+
 const Forum = connection.define('forum', {
     id: {
         type: DataTypes.INTEGER,
@@ -325,9 +350,9 @@ const UserHasRequest = connection.define('user_has_request', {
     timestamps: false
 });
 
-// Define associations
 User.hasMany(Request);
 Request.belongsTo(User);
+User.hasMany(Car)
 
 Forum.belongsTo(User);
 User.hasMany(Forum);
@@ -366,19 +391,30 @@ Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
 
 
+Conversation.hasMany(Participants);
+Participants.belongsTo(Conversation);
+
+User.hasMany(Participants);
+Participants.belongsTo(User);
+
+
+//connection.sync({alter: true})
+
 module.exports = {
-    Admin,
-    User,
-    Forum,
-    Comments,
-    Conversation,
-    Message,
-    Request,
-    Image,
-    Notification,
-    Payment,
-    Professional,
-    ProfessionalHasRequest,
-    UserHasRequest,
-    connection
+  Admin,
+  User,
+  Forum,
+  Comments,
+  Conversation,
+  Request,
+  Images,
+  Messages,
+  Notifications,
+  Paiment,
+  Professional,
+  ProfessionalHasRequest,
+  UserHasRequest,
+  Participants,
+  Car,
+  connection
 };
