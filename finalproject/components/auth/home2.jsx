@@ -2,37 +2,38 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Nav from './bottolnav';
-const HomeScreen = () => {
+const Screenn = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <Image
-        source={require('../../assets/request.png')}
+        source={require('../../assets/helpc.png')}
         style={styles.centeredImage}
       />
 
       <TouchableOpacity
         style={styles.centeredButton}
-        onPress={() => navigation.navigate('service')}
+        onPress={() => navigation.navigate('Cassistance')}
       >
-        <Text style={styles.centeredButtonText}>Reqeust service</Text>
+        <Text style={styles.centeredButtonText}>Community Assistance</Text>
       </TouchableOpacity></View>
 
     <View style={styles.box} >
     <Image
-        source={require('../../assets/rassi.png')}
+        source={require('../../assets/helpp.png')}
         style={styles.centeredImage}
       />
 
       <TouchableOpacity
         style={styles.centeredButton}
-        onPress={() => navigation.navigate('communtity')}
+        onPress={() => navigation.navigate('proServ')}
       >
-        <Text style={styles.centeredButtonText}>Road Map Assistance</Text>
+        <Text style={styles.centeredButtonText}>Profssional Assistance</Text>
       </TouchableOpacity>
     </View>
+
     </View>
   );
 };
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'black',
+    backgroundColor: 'white',
+
   },
   centeredButton: {
     backgroundColor: 'rgb(58,159,253)',
@@ -99,4 +102,4 @@ marginBottom:20
   },
 });
 
-export default HomeScreen;
+export default Screenn;

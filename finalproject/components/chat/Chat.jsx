@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, TextInput, ScrollView } from 'react-native';
-import * as ImagePicker from 'expo-image-picker'; 
+import * as ImagePicker from 'expo-image-picker';
 
 const ChatDetail = () => {
   const [message, setMessage] = useState('');
@@ -26,7 +26,7 @@ const ChatDetail = () => {
 
     if (!result.cancelled) {
       
-      const imageUrl = result.uri; 
+      const imageUrl = result.uri; // Example: URL of the uploaded image
       const newMessage = { id: messages.length + 1, image: imageUrl, sender: 'sender', timestamp: getTime() };
       setMessages([...messages, newMessage]);
     }
