@@ -25,13 +25,13 @@ const Sidebar = ({ navigation }) => {
     console.log(`Pressed ${menuItem}`); // Wrap the string within a <Text> component
   };
 
-  return (
+  return ( 
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => setSidebarVisible(!sidebarVisible)}> {/* Toggle sidebar visibility */}
         <View style={styles.buttonLines}>
-          <View style={styles.line}></View>
+          <View style={styles.line}></View> 
           <View style={styles.line}></View>
           <View style={styles.line}></View>
         </View>
