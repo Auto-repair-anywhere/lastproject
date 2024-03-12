@@ -1,36 +1,68 @@
-import React from 'react';
+import { useEffect,React, useState } from 'react';
+import axios from 'axios';
 import { View, Text, StyleSheet, FlatList, Image, Pressable } from 'react-native';
-
+import {IP} from '../../Backend/ip.json'
 const ChatList = ({ navigation }) => {
   
-  const chatData = [
-    {
-      id: 1,
-      senderName: 'Achref Farhat',
-      lastMessage: 'Hey,where are you guys?',
-      time: '10:30 AM',
-      unreadCount: 2,
-      avatar: require('../../assets/avatar.png'), 
-    },
-    {
-      id: 2,
-      senderName: 'Khaled Nacef',
-      lastMessage: 'What time is the meeting?',
-      time: 'Yesterday',
-      unreadCount: 0,
-      avatar: require('../../assets/avatar.png'),
-    },
+  const [chatData,setChatData]  = useState({})
+  
+  //   {
+  //     id: 1,
+  //     senderName: 'Achref Farhat',
+  //     lastMessage: 'Hey,where are you guys?',
+  //     time: '10:30 AM',
+  //     unreadCount: 2,
+  //     avatar: require('../../assets/avatar.png'), 
+  //   },
+  //   {
+  //     id: 2,
+  //     senderName: 'Khaled Nacef',
+  //     lastMessage: 'What time is the meeting?',
+  //     time: 'Yesterday',
+  //     unreadCount: 0,
+  //     avatar: require('../../assets/avatar.png'),
+  //   },
    
-  ];
+  // ];
+  useEffect(() => {
+    fetchChats(); 
+  }, []);
+
+  
+  const fetchChats = async () => {
+    try {
+      const response = await axios.get(`http://${IP}:8080/chat/${1}/conversations`);
+      const conversations = response.data.map(conversation => {
+  
+        if (conversation.user1Id === 1) {
+          
+          return conversation.user2
+        }
+      
+        if (conversation.user2Id === 1) {
+          
+       
+          return conversation.user1
+        }
+        
+        return null; // 
+      });
+      setChatData(conversations);
+      console.log(conversations);
+    } catch (error) {
+      console.error('Error fetching chats:', error);
+    }
+  };
+ 
 
   const renderItem = ({ item }) => (
     <Pressable
       style={styles.itemContainer}
-      onPress={() => navigation.navigate('Chat', { sender: item.senderName })}
+      onPress={() => navigation.navigate('Chat', {senderid:1,user2Id:item.id})}
     >
-      <Image source={item.avatar} style={styles.avatar} />
+      <Image source={require('../../assets/avatar.png')} style={styles.avatar} />
       <View style={styles.chatInfo}>
-        <Text style={styles.senderName}>{item.senderName}</Text>
+        <Text style={styles.senderName}>{item.firstname} {item.lastname}</Text>
         <Text style={styles.lastMessage}>{item.lastMessage}</Text>
       </View>
       <View style={styles.chatMeta}>

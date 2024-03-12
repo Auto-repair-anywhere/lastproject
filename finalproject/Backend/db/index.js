@@ -1,72 +1,69 @@
-const { Sequelize,DataTypes} = require('sequelize')
-const mysql = require('mysql2')
+const { Sequelize, DataTypes } = require('sequelize');
+const mysql = require('mysql2');
 
+const connection = new Sequelize('finalproject', 'root', 'root', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
 
+connection.authenticate()
+    .then(() => {
+        console.log("Connection has been successfully established");
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
-
-const connection = new Sequelize('finalproject', 'root', 'nour123', {
-
-    host:'localhost',
-    dialect:'mysql'
-})
-
-connection.authenticate() 
-.then(()=>{
-    console.log("connection has been successfully establissshed");
-})
-.catch((err)=>{
-    console.log(err);
-})
 const Admin = connection.define('admin', {
-  idadmin: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    email: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
 const User = connection.define('user', {
-  iduser: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  firstname: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  lastname: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING(350),
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    firstname: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    lastname: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING(350),
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
 const Car = connection.define('Car', {
@@ -95,269 +92,263 @@ const Car = connection.define('Car', {
 });
 
 const Forum = connection.define('forum', {
-  idforum: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  title: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  content: {
-    type: DataTypes.STRING(500),
-    allowNull: false,
-  },
-  image_url: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  createdat: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    title: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    content: {
+        type: DataTypes.STRING(500),
+        allowNull: false
+    },
+    image_url: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    createdat: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const Comments = connection.define('comments', {
-  idcomments: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
+const Comments = connection.define('comment', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    content: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const Conversation = connection.define('conversation', {
-  idconversation: {
-    type: DataTypes.INTEGER,
+// const Conversation = connection.define('conversation', {
+//   id: {
+//       type: DataTypes.INTEGER,
+//       primaryKey: true,
+//       autoIncrement: true
+//   }
+// }, {
+//   freezeTableName: true,
+//   timestamps: false
+// });
+
+// const Message = connection.define('message', {
+//   id: {
+//       type: DataTypes.INTEGER,
+//       primaryKey: true,
+//       autoIncrement: true
+//   },
+//   text: {
+//       type: DataTypes.STRING,
+//       allowNull: false
+//   }
+// }, {
+//   freezeTableName: true,
+//   timestamps: true // Enable timestamps to track message creation time
+// });
+
+
+const Conversation = connection.define('conversation', {},{timestamps: false});
+
+const Message = connection.define('message', {
+  text: {
+    type: Sequelize.STRING,
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
   },
-  time: {
-    type: DataTypes.STRING(45),
+  senderId: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
-}, {
-  freezeTableName: true,
-  timestamps: false,
-});
+  recipientRead: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+},{timestamps: true});
+
+
 
 const Request = connection.define('request', {
-  idrequest: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  brand: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  problem: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  moredescription: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  milage: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  satisfaction: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  imageurl: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-  latitude: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  longitude: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    brand: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    problem: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    moredescription: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    milage: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    satisfaction: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    imageurl: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+    },
+    latitude: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    longitude: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const Images = connection.define('images', {
-  idimages: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  imageurl: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
+const Image = connection.define('image', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    imageurl: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const Messages = connection.define('messages', {
-  idmessages: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  message: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  time: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
+const Notification = connection.define('notification', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    message: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.STRING(45),
+        allowNull: false,
+        defaultValue: 'false'
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const Notifications = connection.define('notifications', {
-  idnotifications: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  messge: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    defaultValue: 'false',
-  },
+const Payment = connection.define('payment', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    amount: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    date: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
-});
-
-const Paiment = connection.define('paiment', {
-  idpaiment: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  amount: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  date: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-}, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
 const Professional = connection.define('professional', {
-  idprof: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  firstname: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  lastname: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING(350),
-    allowNull: false,
-  },
-  role: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  latitude: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  longitude: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    firstname: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    lastname: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING(350),
+        allowNull: false
+    },
+    role: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    latitude: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    },
+    longitude: {
+        type: DataTypes.STRING(45),
+        allowNull: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
 
-const ProfessionalHasRequest = connection.define('professional_has_request', {
-
-}, {
-  freezeTableName: true,
-  timestamps: false,
+const ProfessionalHasRequest = connection.define('professional_has_request', {}, {
+    freezeTableName: true,
+    timestamps: false
 });
 
 const UserHasRequest = connection.define('user_has_request', {
-
-  assigned: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
+    assigned: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
 }, {
-  freezeTableName: true,
-  timestamps: false,
+    freezeTableName: true,
+    timestamps: false
 });
-
-const Participants = connection.define('participants', {
-  idparticipants: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-}, {
-  freezeTableName: true,
-  timestamps: false,
-});
-
 
 User.hasMany(Request);
 Request.belongsTo(User);
@@ -369,26 +360,23 @@ User.hasMany(Forum);
 Forum.hasMany(Comments);
 Comments.belongsTo(Forum);
 
-Forum.belongsTo(User);
-User.hasMany(Forum);
-
 Comments.belongsTo(User);
 User.hasMany(Comments);
 
-Forum.hasMany(Images);
-Images.belongsTo(Forum);
+Forum.hasMany(Image);
+Image.belongsTo(Forum);
 
-User.hasMany(Messages);
-Messages.belongsTo(User);
+// User.hasMany(Conversation);
+Conversation.belongsTo(User, { as: "user1" });
+Conversation.belongsTo(User, { as: "user2" });
+Message.belongsTo(Conversation);
+Conversation.hasMany(Message);
 
-Conversation.hasMany(Messages);
-Messages.belongsTo(Conversation);
+User.hasMany(Notification);
+Notification.belongsTo(User);
 
-User.hasMany(Notifications);
-Notifications.belongsTo(User);
-
-User.hasMany(Paiment);
-Paiment.belongsTo(User);
+User.hasMany(Payment);
+Payment.belongsTo(User);
 
 Professional.hasMany(ProfessionalHasRequest);
 ProfessionalHasRequest.belongsTo(Professional);
@@ -401,6 +389,7 @@ UserHasRequest.belongsTo(User);
 
 Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
+
 
 Conversation.hasMany(Participants);
 Participants.belongsTo(Conversation);
