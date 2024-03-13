@@ -2,12 +2,12 @@ const express = require('express')
 const PORT = 8080
 const app = express()
 const cors = require ('cors');
-const paymentRouter=require('../Routes/payment')
-const professionalRouter=require('../Routes/professional')
-const chatrouter =  require('../Routes/chatroutes')
-const {connection} =require('../db/index')
-const carplate=require('../Routes/findcar')
-const auth =require('../Routes/auth.route')
+const paymentRouter=require('./Routes/payment')
+const professionalRouter=require('./Routes/professional')
+const chatrouter =  require('./Routes/chatroutes')
+const {connection} =require('./db/index')
+const carplate=require('./Routes/findcar')
+const auth =require('./Routes/auth.route')
 
 app.use(cors())
 app.use(express.json())

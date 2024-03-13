@@ -3,14 +3,11 @@ import { View, TextInput, Button, Alert, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
-import {IP} from "../../ip"
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { useNavigation } from '@react-navigation/native';
-
-
+import {IP} from '../../Backend/ip.json'
 const Getcar = () => {
-const navigation = useNavigation();
+
+  const navigation = useNavigation();
 
   const [firstSection, setFirstSection] = useState('');
   const [secondSection, setSecondSection] = useState('');
@@ -19,11 +16,10 @@ const navigation = useNavigation();
   const handleSearch = async  () => {
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
-    axios.post(`http://${IP}:8080/findcar/car-info/1`,
+    axios.post(`http://${IP}:8080/findcar/car-info`,
     {
     licensePlate:inputValue,
-    username:"ttttttt",
-    serie:inputValue
+    username:"ttttt"
     })
     .then((res)=>{
     setCar(res.data)
