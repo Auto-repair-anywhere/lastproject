@@ -46,4 +46,14 @@ const getCarInfoFromLicensePlate = async (req, res) => {
   }
 };
 
-module.exports = { getCarInfoFromLicensePlate };
+const getcar= async (req,res)=>{
+  try {
+    const car = await connection.Car.findAll({})
+    res.send(car)
+}
+ catch(err){
+  console.log(err)
+ }
+}
+
+module.exports = {getCarInfoFromLicensePlate,getcar};

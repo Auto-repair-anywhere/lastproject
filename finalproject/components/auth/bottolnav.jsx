@@ -15,7 +15,7 @@ const Nav=()=>{
 
       <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Home')}>
         <Icon name="home" size={30} color="black" />
-        <Text style={styles.iconText}>Home </Text>
+        <Text style={styles.iconText}>Home</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('SparePartsIcon')}>
@@ -35,7 +35,7 @@ const Nav=()=>{
 
       <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('chatlist')}>
         <Icon name="comments" size={30} color="black" />
-        <Text style={styles.iconText}>Chat </Text>
+        <Text style={styles.iconText}>Chat</Text>
       </TouchableOpacity>
     </View>
     )

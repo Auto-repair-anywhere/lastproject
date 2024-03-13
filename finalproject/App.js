@@ -19,7 +19,7 @@ import Tire from './components/auth/tirePanne.jsx';
 import Professional from './components/Professional.jsx';
 import RequestDetail from './components/RequestDetail.jsx';
 import Payment from './components/Payment.jsx'
-
+import Confirmcar from './components/gitcar/Confirm.jsx';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +53,11 @@ const App = () => {
       >
          <Stack.Screen
           name="getcar"
-          component={Getcar}
+          component={Confirmcar}
+        />
+          <Stack.Screen
+          name="Confirm"
+          component={Confirmcar}
         />
       
         <Stack.Screen

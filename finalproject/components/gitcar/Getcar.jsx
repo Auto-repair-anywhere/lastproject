@@ -3,8 +3,12 @@ import { View, TextInput, Button, Alert, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 import {IP} from '../../Backend/ip.json'
 const Getcar = () => {
+
+  const navigation = useNavigation();
+
   const [firstSection, setFirstSection] = useState('');
   const [secondSection, setSecondSection] = useState('');
   const [car,setCar]=useState("")
@@ -54,7 +58,7 @@ const Getcar = () => {
       </View>
       <Button
         title="Search"
-        onPress={handleSearch}
+        onPress={()=>{handleSearch() , navigation.navigate('Confirm')}}
         color="black"
       />
       <View style={{ bottom:-250, width: 422 }}>
