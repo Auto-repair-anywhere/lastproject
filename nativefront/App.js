@@ -12,7 +12,6 @@ import Screenn from './components/auth/home2.jsx';
 import ChatDetail from './components/chat/Chat.jsx'
 import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
-import Service from './components/auth/servicepage.jsx';
 import Servicee from './components/auth/servicepage.jsx';
 import ServiceePro from './components/auth/servicepro.jsx';
 import Tire from './components/auth/tirePanne.jsx';
@@ -20,6 +19,8 @@ import Professional from './components/Professional.jsx';
 import RequestDetail from './components/RequestDetail.jsx';
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
+import ProHome from './components/auth/professionalHome.jsx';
+import Buttom from './components/ComponentsAchref/Buttom.jsx'
 
 const Stack = createStackNavigator();
 
@@ -27,23 +28,25 @@ const LogoTitle = () => (
   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
     <Image
       style={{ width: 180, height: 60, marginRight: 10 }}
-      source={require('../finalproject/assets/logo.png')}
+      source={require('./assets/logo.png')}
     />
   </View>
 );
 
 const App = () => {
+
+
   return (
     <NavigationContainer>
        
      <Stack.Navigator
-        initialRouteName="getcar"
+       initialRouteName="Login"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
-            height: 140, // Adjust the height as needed
-            elevation: 0, // Remove shadow on Android
-            shadowOpacity: 0, // Remove shadow on iOS
+            height: 140, 
+            elevation: 0, 
+            shadowOpacity: 0, 
           },
           headerTintColor: 'black', // Adjust text color
           headerTitleStyle: {
@@ -53,7 +56,7 @@ const App = () => {
       >
          <Stack.Screen
           name="getcar"
-          component={Confirmcar}
+          component={Getcar}
         />
           <Stack.Screen
           name="Confirm"
@@ -61,8 +64,8 @@ const App = () => {
         />
       
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Buttom"
+          component={Buttom}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
         <Stack.Screen
@@ -120,9 +123,16 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+          <Stack.Screen
+          name="ProHome"
+          component={ProHome}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+       
+       
       </Stack.Navigator>
-      
       <Nav/>
+      
     </NavigationContainer>
   );
 };

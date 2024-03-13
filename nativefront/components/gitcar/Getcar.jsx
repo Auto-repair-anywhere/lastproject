@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, Alert, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
@@ -14,7 +14,6 @@ const Getcar = () => {
   const [car,setCar]=useState("")
   console.log("first",firstSection,"swcond",secondSection);
   const handleSearch = async  () => {
-
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
     axios.post(`http://${IP}:8080/findcar/car-info`,
@@ -31,6 +30,12 @@ const Getcar = () => {
     })
   
   };
+  console.log("test",IP);
+ useEffect(()=>{
+const id= AsyncStorage.getItem()
+console.log(id);
+ },[])
+
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>

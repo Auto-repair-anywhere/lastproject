@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet ,Linking} from 'react-native';
 import axios from 'axios';
-import {IP} from '../ip.json'
+import IP from "../ip"
+
 import { useNavigation } from '@react-navigation/native';
 const Payment = () => {
     const [total, setTotal] = useState(7000);

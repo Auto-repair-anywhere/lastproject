@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Nav from './bottolnav';
+import {IP} from "../../ip.json"
+
 const HomeScreen = () => {
   const navigation = useNavigation();
 
@@ -9,30 +11,31 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.box}>
         <Image
-        source={require('../../assets/request.png')}
-        style={styles.centeredImage}
-      />
+          source={require('../../assets/request.png')}
+          style={styles.centeredImage}
+        />
 
-      <TouchableOpacity
-        style={styles.centeredButton}
-        onPress={() => navigation.navigate('service')}
-      >
-        <Text style={styles.centeredButtonText}>Reqeust service</Text>
-      </TouchableOpacity></View>
+        <TouchableOpacity
+          style={styles.centeredButton}
+          onPress={() => navigation.navigate('service')}
+        >
+          <Text style={styles.centeredButtonText}>Request service</Text>
+        </TouchableOpacity>
+      </View>
 
-    <View style={styles.box} >
-    <Image
-        source={require('../../assets/rassi.png')}
-        style={styles.centeredImage}
-      />
+      <View style={styles.box}>
+        <Image
+          source={require('../../assets/rassi.png')}
+          style={styles.centeredImage}
+        />
 
-      <TouchableOpacity
-        style={styles.centeredButton}
-        onPress={() => navigation.navigate('communtity')}
-      >
-        <Text style={styles.centeredButtonText}>Road Map Assistance</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.centeredButton}
+          onPress={() => navigation.navigate('communtity')}
+        >
+          <Text style={styles.centeredButtonText}>Road Map Assistance</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -44,6 +47,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'black',
+    backgroundColor: 'white',
+
   },
   centeredButton: {
     backgroundColor: 'rgb(58,159,253)',
@@ -64,7 +69,7 @@ marginBottom:20
     
   },
   box:{
-    width:"96%",
+    width:"90%",
     alignItems: 'center',
     justifyContent: 'center',
     border:2,
@@ -73,8 +78,9 @@ marginBottom:20
     marginTop:9,
     borderRadius:20,
     backgroundColor:"white",
-    padding:2
-
+    padding:2,
+    borderWidth: 1, 
+    borderColor: 'black',  
   },
  
   centeredImage: {
@@ -83,7 +89,8 @@ marginBottom:20
     marginBottom: 20,
     borderRadius: 20,
     margin:"auto",
-    marginTop:15
+    marginTop:15,
+    resizeMode:"contain"
   },
   centeredText: {
     fontSize: 16,
@@ -98,5 +105,4 @@ marginBottom:20
     marginTop: 5,
   },
 });
-
 export default HomeScreen;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import axios from 'axios'
-import {IP} from '../ip.json'
 import { useNavigation } from '@react-navigation/native';
+import IP from "../ip"
 
 const Professional = () => { // Assuming `id` and `navigation` are passed as props
   const [requests, setRequests] = useState([]);

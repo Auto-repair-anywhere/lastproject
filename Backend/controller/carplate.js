@@ -1,6 +1,7 @@
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
-const connection = require('../db/index.js')
+const connection = require('../db/index.js');
+const { where } = require('sequelize');
 const getCarInfoFromLicensePlate = async (req, res) => {
   const { licensePlate, username } = req.body;
 
@@ -36,7 +37,9 @@ const getCarInfoFromLicensePlate = async (req, res) => {
       const car =  connection.Car.create({
         carname:description,
         fueltype:fuelType,
-        carimage:imageUrl
+        carimage:imageUrl,
+        userId:req.params.userId,
+        serie:req.body.serie
       })
       res.send({ description, fuelType, imageUrl });
     });
@@ -48,7 +51,8 @@ const getCarInfoFromLicensePlate = async (req, res) => {
 
 const getcar= async (req,res)=>{
   try {
-    const car = await connection.Car.findAll({})
+    const car = await connection.Car.findAll({
+      where:{userId:req.params.id}})
     res.send(car)
 }
  catch(err){
