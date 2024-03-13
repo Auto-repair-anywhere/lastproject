@@ -1,13 +1,13 @@
 import React from 'react';
 import 'react-native-gesture-handler';
+import { View, Image } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import Chat from './components/chat/Chat.jsx'
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import HomeScreen from './components/auth/home.jsx';
 import Getcar from './components/gitcar/Getcar.jsx';
-import { View, Image } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 import Screenn from './components/auth/home2.jsx';
 import ChatDetail from './components/chat/Chat.jsx'
 import ChatList from './components/chat/ChatList.jsx'
@@ -19,7 +19,8 @@ import Professional from './components/Professional.jsx';
 import RequestDetail from './components/RequestDetail.jsx';
 import Payment from './components/Payment.jsx'
 import ProHome from './components/auth/professionalHome.jsx';
-
+import TireQuestions from './components/ComponentsAchref/TireQuestions.jsx'
+import Buttom from './components/ComponentsAchref/Buttom.jsx'
 
 const Stack = createStackNavigator();
 
@@ -38,7 +39,7 @@ const App = () => {
   return (
     <NavigationContainer>
      <Stack.Navigator
-        initialRouteName="Home" 
+        initialRouteName="Buttom" 
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -53,8 +54,8 @@ const App = () => {
         }}
       >
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Buttom"
+          component={Buttom}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
         <Stack.Screen
