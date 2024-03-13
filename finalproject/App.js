@@ -1,27 +1,130 @@
-import { StyleSheet, View } from 'react-native';
-import { NativeRouter, Route, Routes } from "react-router-native";
-import Button from './components/ComponentsAchref/Buttom.jsx';
-import Workshoplist from './components/ComponentsAchref/Workshopslist.jsx'
-import QuestionCarPage from './components/ComponentsAchref/QuestionCarPage.jsx'
-import LandingPage from './components/ComponentsAchref/LandingPage.jsx';
+import React from 'react';
+import 'react-native-gesture-handler';
+import { View, Image } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Chat from './components/chat/Chat.jsx'
+import Login from './components/auth/login.jsx';
+import Signup from './components/auth/signup.jsx';
+import HomeScreen from './components/auth/home.jsx';
+import Getcar from './components/gitcar/Getcar.jsx';
+import Screenn from './components/auth/home2.jsx';
+import ChatDetail from './components/chat/Chat.jsx'
+import ChatList from './components/chat/ChatList.jsx'
+import Nav from './components/auth/bottolnav.jsx';
+import Servicee from './components/auth/servicepage.jsx';
+import ServiceePro from './components/auth/servicepro.jsx';
+import Tire from './components/auth/tirePanne.jsx';
+import Professional from './components/Professional.jsx';
+import RequestDetail from './components/RequestDetail.jsx';
+import Payment from './components/Payment.jsx'
+import ProHome from './components/auth/professionalHome.jsx';
+import TireQuestions from './components/ComponentsAchref/TireQuestions.jsx'
+import Buttom from './components/ComponentsAchref/Buttom.jsx'
 
-const App = () => (
-  <NativeRouter>
-    <View>
-      <Routes>
-        <Route path="/" element={<QuestionCarPage/>} />
-      </Routes>
-    </View>
-  </NativeRouter>
-)
+const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const LogoTitle = () => (
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Image
+      style={{ width: 180, height: 60, marginRight: 10 }}
+      source={require('../finalproject/assets/logo.png')}
+    />
+  </View>
+);
+
+const App = () => {
+
+
+  return (
+    <NavigationContainer>
+     <Stack.Navigator
+        initialRouteName="Buttom" 
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: 'white',
+            height: 140, 
+            elevation: 0, 
+            shadowOpacity: 0, 
+          },
+          headerTintColor: 'black', // Adjust text color
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Buttom"
+          component={Buttom}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="Chat"
+          component={ChatDetail}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="chatlist"
+          component={ChatList}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="tire"
+          component={Tire}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="communtity"
+          component={Screenn}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="proServ"
+          component={ServiceePro}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="Cassistance"
+          component={Servicee}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="Professional"
+          component={Professional}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="RequestDetail"
+          component={RequestDetail}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="Payment"
+          component={Payment}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="ProHome"
+          component={ProHome}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+       
+       
+      </Stack.Navigator>
+      <Nav/>
+      
+    </NavigationContainer>
+  );
+};
 
 export default App;

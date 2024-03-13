@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Sidebar = ({ navigation }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [message, setMessage] = useState('');
 
   const menuItems = [
     { title: 'Profile', icon: 'person' },
@@ -21,8 +22,8 @@ const Sidebar = ({ navigation }) => {
   const handleMenuItemPress = (menuItem) => {
     // Toggle sidebar visibility
     setSidebarVisible(!sidebarVisible);
-    // Implement navigation logic here
-    console.log(`Pressed ${menuItem}`); // Wrap the string within a <Text> component
+    // Set the message
+    setMessage(`Pressed ${menuItem}`);
   };
 
   return ( 
@@ -57,6 +58,9 @@ const Sidebar = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+
+      {/* Display the message */}
+      <Text>{message}</Text>
     </View>
   );
 };
