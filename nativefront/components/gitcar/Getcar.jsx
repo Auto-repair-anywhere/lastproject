@@ -5,10 +5,18 @@ import Nav from '../auth/bottolnav';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import {IP} from '../../ip.json'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Getcar = () => {
+  const id =  AsyncStorage.getAllKeys()
 
-  const navigation = useNavigation();
+
+ const navigation = useNavigation();
+
+ console.log("this is the id you need",id);
+
+
 
   const [firstSection, setFirstSection] = useState('');
   const [secondSection, setSecondSection] = useState('');
@@ -20,7 +28,8 @@ const Getcar = () => {
     axios.post(`http://${IP}:8080/findcar/car-info/1`,
     {
     licensePlate:inputValue,
-    username:"ttttt"
+    username:"kkk",
+    serie:inputValue,
     })
     .then((res)=>{
     setCar(res.data)
@@ -31,11 +40,7 @@ const Getcar = () => {
     })
   
   };
-  console.log("test",IP);
- useEffect(()=>{
-const id= AsyncStorage.getItem()
-console.log(id);
- },[])
+ 
 
 
   return (

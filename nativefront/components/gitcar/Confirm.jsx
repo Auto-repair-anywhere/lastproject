@@ -5,11 +5,10 @@ import {IP} from '../../ip.json'
 
 const Confirmcar = () => {
   const [car, setCar] = useState([]);
-
+console.log(car);
   useEffect(() => {
-    axios.get(`http://${IP}:8080/findcar/verify`)
+    axios.get(`http://${IP}:8080/findcar/verify/1`)
       .then((res) => {
-        console.log(res.data);
         setCar(res.data);
       })
       .catch((err) => {
@@ -27,6 +26,7 @@ const Confirmcar = () => {
           <View style={styles.carInfo}>
             <Text style={styles.carText}>Car Model: {el.carname}</Text>
             <Text style={styles.carText}>Fuel Type: {el.fueltype}</Text>
+            <Text style={styles.carText}>carplate: {el.carplate}</Text>
           </View>
         </View>
       ))}

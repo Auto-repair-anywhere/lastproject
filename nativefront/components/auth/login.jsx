@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
   const navigation = useNavigation();
+ 
 
 
   const [email, setEmail] = useState('');
@@ -19,9 +20,9 @@ const Login = () => {
       await axios.post(`http://${IP}:8080/auth/login`, { email, password }).then(async(res)=>{
         
       if (res.data.user.iduser !== undefined) {
-        await AsyncStorage.setItem('userId', res.data.user.iduser.toString());
-        console.log('Login successful:', res.data);
-        navigation.navigate('Home');
+       const id= await AsyncStorage.setItem('userId',JSON.stringify( res.data.user.iduser));
+        console.log('Login successful:', id);
+        navigation.navigate('getcar');
       } else {
         console.log('User ID is undefined in the response data.');
       }
