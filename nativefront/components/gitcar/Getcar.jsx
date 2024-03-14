@@ -4,7 +4,8 @@ import * as ImagePicker from 'expo-image-picker';
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import {IP} from '../../Backend/ip.json'
+import {IP} from '../../ip.json'
+
 const Getcar = () => {
 
   const navigation = useNavigation();

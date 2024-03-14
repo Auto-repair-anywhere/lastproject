@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
-import { IP } from '../../Backend/ip.json';
-
+import {IP} from '../../ip.json'
 
 const Confirmcar = () => {
   const [car, setCar] = useState([]);

@@ -131,7 +131,6 @@ const App = () => {
        
        
       </Stack.Navigator>
-      <Nav/>
       
     </NavigationContainer>
   );

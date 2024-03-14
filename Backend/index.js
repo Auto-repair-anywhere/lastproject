@@ -1,19 +1,35 @@
-const express = require('express')
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 const PORT = 8080
 const app = express()
 const cors = require ('cors');
-const paymentRouter=require('./Routes/payment')
-const professionalRouter=require('./Routes/professional')
-const chatrouter =  require('./Routes/chatroutes')
-const {connection} =require('./db/index')
-const carplate=require('./Routes/findcar')
-const auth =require('./Routes/auth.route')
-
+const paymentRouter=require('../Backend/Routes/payment')
+const professionalRouter=require('../Backend/Routes/professional')
+const chatrouter =  require('../Backend/Routes/chatroutes')
+const {connection} =require('../Backend/db/index')
+const carplate=require('../Backend/Routes/findcar')
+const auth =require('../Backend/Routes/auth.route')
 app.use(cors())
 app.use(express.json())
 connection.sync()
 
+const server = http.createServer(app);
 
+const io = socketIo(server);
+// io.on('connection', (socket) => {
+//   console.log('A user connected');
+
+//   // socket.on('newMessage', (data) => {
+//   //   console.log('New message:', data);
+    
+//   //   io.emit('newMessage', data);
+//   // });
+
+//   // socket.on('disconnect', () => {
+//   //   console.log('User disconnected');
+//   // });
+// })
 app.use('/auth',auth)
 app.use('/findcar',carplate)
 app.use('/payment',paymentRouter)
@@ -25,3 +41,5 @@ app.use(express.static(__dirname + '/../client/dist'))
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`)
 })
+
+module.exports = {io};
