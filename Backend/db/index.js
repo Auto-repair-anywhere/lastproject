@@ -4,7 +4,7 @@ const mysql = require('mysql2')
 
 
 
-const connection = new Sequelize('finalproject', 'root', '1234', {
+const connection = new Sequelize('finalproject', 'root', 'nour123', {
     host:'localhost',
     dialect:'mysql'
 })
@@ -117,8 +117,8 @@ const Forum = connection.define('forum', {
       allowNull: false
   },
   image_url: {
-      type: DataTypes.STRING(45),
-      allowNull: true
+    type: DataTypes.TEXT,
+    allowNull: false,
   },
   category: {
       type: DataTypes.STRING(45),
