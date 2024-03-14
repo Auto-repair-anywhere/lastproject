@@ -47,6 +47,10 @@ const User = connection.define('user', {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+  Number: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   lastname: {
     type: DataTypes.STRING(45),
     allowNull: false,
@@ -79,6 +83,10 @@ const Car = connection.define('Car', {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+  carplate: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+  },
   fueltype: {
     type: DataTypes.STRING(500),
     allowNull: false,
@@ -94,31 +102,31 @@ const Car = connection.define('Car', {
 });
 
 const Forum = connection.define('forum', {
-  idforum: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+  id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
   },
   title: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
+      type: DataTypes.STRING(45),
+      allowNull: false
   },
   content: {
-    type: DataTypes.STRING(500),
-    allowNull: false,
+      type: DataTypes.STRING(500),
+      allowNull: false
   },
   image_url: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  createdat: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
+  category: {
+      type: DataTypes.STRING(45),
+      allowNull: false
   },
 }, {
   freezeTableName: true,
-  timestamps: false,
+  timestamps: true
 });
 
 const Comments = connection.define('comments', {
@@ -137,21 +145,8 @@ const Comments = connection.define('comments', {
   timestamps: false,
 });
 
-const Conversation = connection.define('conversation', {
-  idconversation: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  time: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-}, {
-  freezeTableName: true,
-  timestamps: false,
-});
+const Conversation = connection.define('conversation', {},{timestamps: false});
+
 
 const Request = connection.define('request', {
   idrequest: {
@@ -345,17 +340,27 @@ const UserHasRequest = connection.define('user_has_request', {
   timestamps: false,
 });
 
-const Participants = connection.define('participants', {
-  idparticipants: {
-    type: DataTypes.INTEGER,
+const Message = connection.define('message', {
+  text: {
+    type: Sequelize.STRING,
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
   },
-}, {
-  freezeTableName: true,
-  timestamps: false,
-});
+  senderId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  recipientRead: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+},{timestamps: true});
+
+
+Conversation.belongsTo(User, { as: "user1" });
+Conversation.belongsTo(User, { as: "user2" });
+Message.belongsTo(Conversation);
+Conversation.hasMany(Message);
+
 
 
 User.hasMany(Request);
@@ -401,12 +406,6 @@ UserHasRequest.belongsTo(User);
 Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
 
-Conversation.hasMany(Participants);
-Participants.belongsTo(Conversation);
-
-User.hasMany(Participants);
-Participants.belongsTo(User);
-
 
 connection.sync({alter: true})
 
@@ -424,7 +423,6 @@ module.exports = {
   Professional,
   ProfessionalHasRequest,
   UserHasRequest,
-  Participants,
   Car,
   connection
 };
