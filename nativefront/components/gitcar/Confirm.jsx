@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 import {IP} from '../../ip.json'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Confirmcar = () => {
-  const [car, setCar] = useState([]);
+const [car, setCar] = useState([]);
 console.log(car);
-  useEffect(() => {
-    axios.get(`http://${IP}:8080/findcar/verify/1`)
+  useEffect(async () => {
+    const id= await AsyncStorage.getItem('userId')
+    axios.get(`http://${IP}:8080/findcar/verify/${id}`)
       .then((res) => {
         setCar(res.data);
       })

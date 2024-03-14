@@ -20,8 +20,8 @@ const Login = () => {
       await axios.post(`http://${IP}:8080/auth/login`, { email, password }).then(async(res)=>{
         
       if (res.data.user.iduser !== undefined) {
-       const id= await AsyncStorage.setItem('userId',JSON.stringify( res.data.user.iduser));
-        console.log('Login successful:', id);
+       await AsyncStorage.setItem('userId',JSON.stringify( res.data.user.iduser));
+        console.log('Login successful:');
         navigation.navigate('getcar');
       } else {
         console.log('User ID is undefined in the response data.');

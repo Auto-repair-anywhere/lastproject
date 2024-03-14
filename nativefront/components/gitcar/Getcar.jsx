@@ -8,13 +8,14 @@ import {IP} from '../../ip.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+
 const Getcar = () => {
-  const id =  AsyncStorage.getAllKeys()
+
 
 
  const navigation = useNavigation();
 
- console.log("this is the id you need",id);
+ 
 
 
 
@@ -25,7 +26,9 @@ const Getcar = () => {
   const handleSearch = async  () => {
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
-    axios.post(`http://${IP}:8080/findcar/car-info/1`,
+   const id= await AsyncStorage.getItem('userId')
+console.log("HHHHH",id);
+    axios.post(`http://${IP}:8080/findcar/car-info/${id}`,
     {
     licensePlate:inputValue,
     username:"kkk",
