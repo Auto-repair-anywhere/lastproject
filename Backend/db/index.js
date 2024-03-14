@@ -408,7 +408,7 @@ User.hasMany(Participants);
 Participants.belongsTo(User);
 
 
-connection.sync({alter: true})
+//connection.sync({alter: true})
 
 module.exports = {
   Admin,
