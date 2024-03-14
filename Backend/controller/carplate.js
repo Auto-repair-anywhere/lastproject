@@ -35,11 +35,11 @@ const getCarInfoFromLicensePlate = async (req, res) => {
       const fuelType = vehicleJson.FuelType;
       const imageUrl = vehicleJson.ImageUrl;
       const car =  connection.Car.create({
+        userIduser:req.params.userId,
         carname:description,
         fueltype:fuelType,
         carimage:imageUrl,
-        userId:req.params.userId,
-        serie:req.body.serie
+        carplate:req.body.serie
       })
       res.send({ description, fuelType, imageUrl });
     });
@@ -52,7 +52,7 @@ const getCarInfoFromLicensePlate = async (req, res) => {
 const getcar= async (req,res)=>{
   try {
     const car = await connection.Car.findAll({
-      where:{userId:req.params.id}})
+      where:{userIduser:req.params.id}})
     res.send(car)
 }
  catch(err){

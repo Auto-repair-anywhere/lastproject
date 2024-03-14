@@ -49,7 +49,7 @@ const User = connection.define('user', {
   },
   Number: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   lastname: {
     type: DataTypes.STRING(45),
@@ -84,8 +84,8 @@ const Car = connection.define('Car', {
     allowNull: false,
   },
   carplate: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
+    type: DataTypes.STRING(255),
+    allowNull: true,
   },
   fueltype: {
     type: DataTypes.STRING(500),
@@ -407,7 +407,7 @@ Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
 
 
-connection.sync({alter: true})
+//connection.sync({alter: true})
 
 module.exports = {
   Admin,
