@@ -17,7 +17,7 @@ const Getcar = () => {
   const handleSearch = async  () => {
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
-    axios.post(`http://${IP}:8080/findcar/car-info`,
+    axios.post(`http://${IP}:8080/findcar/car-info/1`,
     {
     licensePlate:inputValue,
     username:"ttttt"
