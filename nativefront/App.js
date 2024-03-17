@@ -38,7 +38,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="getcar"
+       initialRouteName="Login"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
