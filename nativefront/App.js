@@ -14,11 +14,13 @@ import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
 import ServiceePro from './components/auth/servicepro.jsx';
-import Professional from './components/requests/Professional.jsx'
+import Tire from './components/auth/tirePanne.jsx';
+import Professional from './components/requests/Professional.jsx';
+import RequestDetail from './components/requests/RequestDetail.jsx';
+import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
-import RequestDetail from './components/requests/RequestDetail.jsx'
 
 const Stack = createStackNavigator();
 
@@ -111,9 +113,19 @@ const App = () => {
           component={RequestDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+        <Stack.Screen
+          name="RequestUser"
+          component={RequestUser}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
          <Stack.Screen
           name="Payment"
           component={Payment}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+          <Stack.Screen
+          name="ProHome"
+          component={ProHome}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
        
