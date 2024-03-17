@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, Alert, Image } from 'react-native';
+import { View, TextInput, Button, Alert, Image,Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
@@ -27,7 +27,6 @@ const Getcar = () => {
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
    const id= await AsyncStorage.getItem('userId')
-console.log("HHHHH",id);
     axios.post(`http://${IP}:8080/findcar/car-info/${id}`,
     {
     licensePlate:inputValue,
@@ -48,7 +47,22 @@ console.log("HHHHH",id);
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
+          <Text style={{marginLeft:-320,top:-20}} >
+            Name
+          </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 90, width: 360, borderWidth: 1, borderColor: 'gray', borderRadius: 6, overflow: 'hidden',marginLeft:-10,height:60 }} >
+          
+        </View>
+
+        <Text style={{marginLeft:-320,top:-20}} >
+            Service
+          </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 120, width: 360, borderWidth: 1, borderColor: 'gray', borderRadius: 6, overflow: 'hidden',marginLeft:-10,height:60 }} >
+          
+        </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, width: 180, borderWidth: 1, borderColor: 'gray', borderRadius: 5, overflow: 'hidden' }}>
+        
+        
         <TextInput
           style={{ flex: 1, height: 40, paddingHorizontal: 10 }}
           value={firstSection}

@@ -5,7 +5,6 @@ import Chat from './components/chat/Chat.jsx'
 import Getcar from './components/gitcar/Getcar.jsx';
 import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import Screenn from './components/auth/home2.jsx';
@@ -14,17 +13,12 @@ import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
 import ServiceePro from './components/auth/servicepro.jsx';
-import Tire from './components/auth/tirePanne.jsx';
 import Professional from './components/requests/Professional.jsx';
 import RequestDetail from './components/requests/RequestDetail.jsx';
 import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
-import ProHome from './components/auth/professionalHome.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
-import Forum from './components/forum/Forum.jsx'
-import PostDetail from './components/forum/PostDetail.jsx';
-
 
 const Stack = createStackNavigator();
 
@@ -92,11 +86,6 @@ const App = () => {
           component={ChatList}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-         <Stack.Screen
-          name="tire"
-          component={Tire}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
         <Stack.Screen
           name="communtity"
           component={Screenn}
@@ -132,26 +121,10 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
-          name="Forum"
-          component={Forum}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
 
-      <Stack.Screen
-          name="PostDetail"
-          component={PostDetail}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-          <Stack.Screen
-          name="ProHome"
-          component={ProHome}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
        
        
       </Stack.Navigator>
-      
     </NavigationContainer>
   );
 };
