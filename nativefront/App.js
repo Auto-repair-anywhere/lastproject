@@ -5,7 +5,6 @@ import Chat from './components/chat/Chat.jsx'
 import Getcar from './components/gitcar/Getcar.jsx';
 import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import Screenn from './components/auth/home2.jsx';
@@ -14,7 +13,6 @@ import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
 import ServiceePro from './components/auth/servicepro.jsx';
-import Tire from './components/auth/tirePanne.jsx';
 import Professional from './components/requests/Professional.jsx';
 import RequestDetail from './components/requests/RequestDetail.jsx';
 import RequestUser from './components/requests/RequestUser.jsx'
@@ -40,7 +38,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="proServ"
+       initialRouteName="getcar"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -123,11 +121,7 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-          <Stack.Screen
-          name="ProHome"
-          component={ProHome}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
+
        
        
       </Stack.Navigator>
