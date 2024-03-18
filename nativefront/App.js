@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import Chat from './components/chat/Chat.jsx'
 import Getcar from './components/gitcar/Getcar.jsx';
 import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,7 +8,6 @@ import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import Screenn from './components/auth/home2.jsx';
-import ChatDetail from './components/chat/Chat.jsx'
 import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
@@ -40,7 +38,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="getcar"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -78,13 +76,9 @@ const App = () => {
           component={Signup}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+        
          <Stack.Screen
-          name="Chat"
-          component={ChatDetail}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-         <Stack.Screen
-          name="chatlist"
+          name="Chatlist"
           component={ChatList}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
