@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
+<<<<<<< HEAD
 import { IP } from '../../';
 
+=======
+import {IP} from '../../ip.json'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+>>>>>>> d178a0085bbd0c028ad7a04739952787ddb4f2ea
 
 const Confirmcar = () => {
-  const [car, setCar] = useState([]);
-
-  useEffect(() => {
-    axios.get(`http://${IP}:8080/findcar/verify`)
+const [car, setCar] = useState([]);
+console.log(car);
+  useEffect(async () => {
+    const id= await AsyncStorage.getItem('userId')
+    axios.get(`http://${IP}:8080/findcar/verify/${id}`)
       .then((res) => {
-        console.log(res.data);
         setCar(res.data);
       })
       .catch((err) => {
@@ -28,6 +33,7 @@ const Confirmcar = () => {
           <View style={styles.carInfo}>
             <Text style={styles.carText}>Car Model: {el.carname}</Text>
             <Text style={styles.carText}>Fuel Type: {el.fueltype}</Text>
+            <Text style={styles.carText}>carplate: {el.carplate}</Text>
           </View>
         </View>
       ))}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, ImageBackground, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import axios from 'axios';
+import {IP} from '../../ip.json'
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import {IP} from "../../ip.json"
 
 const Signup = () => {
 
@@ -27,10 +27,6 @@ const Signup = () => {
       console.error('Error selecting image:', error);
     }
   };
-
-
-
-
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

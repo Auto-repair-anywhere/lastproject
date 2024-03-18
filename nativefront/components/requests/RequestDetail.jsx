@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
-import IP from "../ip"
+import {IP} from '../../ip.json'
 
 const RequestDetail = () => {
   const [requests, setRequests] = useState([]);
