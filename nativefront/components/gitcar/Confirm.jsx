@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
-<<<<<<< HEAD
-import { IP } from '../../';
-
-=======
 import {IP} from '../../ip.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
->>>>>>> d178a0085bbd0c028ad7a04739952787ddb4f2ea
 
 const Confirmcar = () => {
 const [car, setCar] = useState([]);
