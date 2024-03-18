@@ -1,45 +1,42 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Nav from './bottolnav';
-import {IP} from "../../ip.json"
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
+  const renderButton = (imageSource, buttonText, screenName, type) => (
+    <View style={styles.box}>
+      <Image
+        source={imageSource}
+        style={styles.centeredImage}
+      />
+  
+      <TouchableOpacity
+        style={styles.centeredButton}
+        onPress={() => navigation.navigate(screenName, { type })}
+      >
+        <Text style={styles.centeredButtonText}>{buttonText}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Image
-          source={require('../../assets/request.png')}
-          style={styles.centeredImage}
-        />
-
-        <TouchableOpacity
-          style={styles.centeredButton}
-          onPress={() => navigation.navigate('service')}
-        >
-          <Text style={styles.centeredButtonText}>Request service</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.box}>
-        <Image
-          source={require('../../assets/rassi.png')}
-          style={styles.centeredImage}
-        />
-
-        <TouchableOpacity
-          style={styles.centeredButton}
-          onPress={() => navigation.navigate('communtity')}
-        >
-          <Text style={styles.centeredButtonText}>Road Map Assistance</Text>
-        </TouchableOpacity>
-      </View>
+     {renderButton(
+        require('../../assets/request.png'),
+        'Request service',
+        'proServ',
+        1
+      )}
+      {renderButton(
+        require('../../assets/rassi.png'),
+        'Road Map Assistance',
+        'communtity'
+      )}
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

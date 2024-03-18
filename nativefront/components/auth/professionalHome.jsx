@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import {IP} from "../../ip.json"
 
 const ProHome = () => {
 
