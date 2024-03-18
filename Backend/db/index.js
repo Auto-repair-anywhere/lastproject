@@ -4,7 +4,7 @@ const mysql = require('mysql2')
 
 
 
-const connection = new Sequelize('finalproject', 'root', '1234', {
+const connection = new Sequelize('finalproject', 'root', '', {
     host:'localhost',
     dialect:'mysql'
 })
@@ -67,10 +67,24 @@ const User = connection.define('user', {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
+  latitude: { 
+    type: DataTypes.FLOAT, 
+    allowNull: true,
+  },
+  longitude: { 
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  role: { 
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    defaultValue: 'user',
+  },
 }, {
   freezeTableName: true,
   timestamps: false,
 });
+
 
 const Car = connection.define('Car', {
   idcar: {
@@ -173,7 +187,7 @@ const Request = connection.define('request', {
   },
   milage: {
     type: DataTypes.STRING(45),
-    allowNull: false,
+    allowNull: true,
   },
   status: {
     type: DataTypes.STRING(45),
@@ -181,7 +195,7 @@ const Request = connection.define('request', {
   },
   satisfaction: {
     type: DataTypes.STRING(45),
-    allowNull: false,
+    allowNull: true,
   },
   imageurl: {
     type: DataTypes.STRING(255),
@@ -195,10 +209,20 @@ const Request = connection.define('request', {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+  spareTireOption: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  parkingGarageOption: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
 }, {
   freezeTableName: true,
   timestamps: false,
 });
+
+
 
 const Images = connection.define('images', {
   idimages: {

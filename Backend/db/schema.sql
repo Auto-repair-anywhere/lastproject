@@ -39,10 +39,12 @@ CREATE TABLE IF NOT EXISTS `finalproject`.`user` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(350) NOT NULL,
   `image` VARCHAR(255) NOT NULL,
+  `latitude` FLOAT, -- Add latitude attribute
+  `longitude` FLOAT, -- Add longitude attribute
+  `role` VARCHAR(45) NOT NULL DEFAULT 'user', -- Add role attribute
   PRIMARY KEY (`iduser`),
-  UNIQUE INDEX `image_UNIQUE` (`image` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+  UNIQUE INDEX `image_UNIQUE` (`image` ASC) VISIBLE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -106,20 +108,23 @@ CREATE TABLE IF NOT EXISTS `finalproject`.`request` (
   `description` VARCHAR(255) NOT NULL,
   `moredescription` VARCHAR(255) NOT NULL,
   `milage` VARCHAR(45) NOT NULL,
-  `time` VARCHAR(45) NOT NULL,
+  `time` VARCHAR(45) NOT NULL, 
   `user_iduser` INT NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   `satisfaction` VARCHAR(45) NOT NULL,
   `imageurl` VARCHAR(255) NULL DEFAULT NULL,
   `latitude` VARCHAR(45) NOT NULL,
-  `langitude` VARCHAR(45) NOT NULL,
+  `langitude` VARCHAR(45) NOT NULL, 
+  `spareTireOption` BOOLEAN,
+  `parkingGarageOption` BOOLEAN, 
   PRIMARY KEY (`idrequest`),
   INDEX `fk_request_user1_idx` (`user_iduser` ASC) VISIBLE,
   CONSTRAINT `fk_request_user1`
     FOREIGN KEY (`user_iduser`)
-    REFERENCES `finalproject`.`user` (`iduser`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+    REFERENCES `finalproject`.`user` (`iduser`)
+)
+ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
+
 
 
 -- -----------------------------------------------------

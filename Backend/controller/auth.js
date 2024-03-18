@@ -45,4 +45,47 @@ const loginUser = async (req, res) => {
        console.error('Error in signing in user:', err)
     }
 }
-module.exports={ signupUser ,loginUser}
+
+async function addProfessionelPosition(req, res) {
+    try {
+        const { latitude, longitude, id_user } = req.body;
+
+        const existingUser = await connection.User.findOne({ where: { iduser: id_user } });
+
+        if (existingUser) {
+            await existingUser.update({ latitude, longitude });
+            res.status(200).json({ message: 'Professional position updated successfully', data: existingUser });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error updating professional position:', error);
+        res.status(500).json({ message: 'Failed to update professional position', error: error.message });
+    }
+}
+
+
+async function getProfessionelPositionById(req, res) {
+    try {
+        const { idUser } = req.params;
+
+        const position = await connection.User.findOne({
+            where: {
+                iduser: idUser
+            }
+        });
+
+        if (!position) {
+            return res.status(404).json({ message: 'Professional position not found' });
+        }
+
+        res.status(200).json({ message: 'Professional position found', data: position });
+    } catch (error) {
+        console.error('Error getting professional position by user ID:', error);
+        res.status(500).json({ message: 'Failed to get professional position', error: error.message });
+    }
+}
+
+
+
+module.exports={ signupUser ,loginUser,getProfessionelPositionById, addProfessionelPosition}
