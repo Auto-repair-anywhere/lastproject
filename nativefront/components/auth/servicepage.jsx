@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-function servicepage() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default servicepage
-=======
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -128,4 +115,3 @@ const styles = StyleSheet.create({
 });
 
 export default Servicee;
->>>>>>> d178a0085bbd0c028ad7a04739952787ddb4f2ea

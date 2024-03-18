@@ -56,8 +56,6 @@ const Login = () => {
           onChangeText={(text) => setEmail(text)}
           onFocus={() => setIsEmailFocused(true)}
           onBlur={() => setIsEmailFocused(false)}
-          value={email}
-
         />
         <TextInput
           style={[styles.input, isPasswordFocused && styles.focusedInput]}
@@ -66,7 +64,6 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           onFocus={() => setIsPasswordFocused(true)}
           onBlur={() => setIsPasswordFocused(false)}
-          value={password}
         />
 
         <TouchableOpacity onPress={() => console.log("Forget your password!")}>
