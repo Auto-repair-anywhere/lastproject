@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, Alert, Image,Text } from 'react-native';
+import { View, TextInput, Button, Alert, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import Nav from '../auth/bottolnav';
 import axios from 'axios';
@@ -11,58 +11,41 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Getcar = () => {
 
-
-
  const navigation = useNavigation();
-
- 
-
 
 
   const [firstSection, setFirstSection] = useState('');
   const [secondSection, setSecondSection] = useState('');
   const [car,setCar]=useState("")
   console.log("first",firstSection,"swcond",secondSection);
-  const handleSearch = async  () => {
+
+
+  const handleSearch = async () => {
     const inputValue = `${firstSection} TU ${secondSection}`;
     console.log(inputValue);
-   const id= await AsyncStorage.getItem('userId')
-    axios.post(`http://${IP}:8080/findcar/car-info/${id}`,
-    {
-    licensePlate:inputValue,
-    username:"kkk",
-    serie:inputValue,
+    const id = await AsyncStorage.getItem('userId');
+    console.log("HHHHH", id);
+    axios.post(`http://${IP}:8080/findcar/car-info/${id}`, {
+      licensePlate: inputValue,
+      username: "emna123",
+      serie: inputValue,
     })
-    .then((res)=>{
-    setCar(res.data)
-    console.log(res.data);
+    .then((res) => {
+      console.log("handleSearch");
+      console.log(res.data);
+      navigation.navigate('Confirm', { carData: res.data });
     })
-    .catch((err)=>{
-    console.log(err);
-    })
-  
+    .catch((err) => {
+      console.log("err");
+      console.log(err);
+    });
   };
- 
+  
 
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
-          <Text style={{marginLeft:-320,top:-20}} >
-            Name
-          </Text>
-      <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 90, width: 360, borderWidth: 1, borderColor: 'gray', borderRadius: 6, overflow: 'hidden',marginLeft:-10,height:60 }} >
-          
-        </View>
-
-        <Text style={{marginLeft:-320,top:-20}} >
-            Service
-          </Text>
-      <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 120, width: 360, borderWidth: 1, borderColor: 'gray', borderRadius: 6, overflow: 'hidden',marginLeft:-10,height:60 }} >
-          
-        </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, width: 180, borderWidth: 1, borderColor: 'gray', borderRadius: 5, overflow: 'hidden' }}>
-        
-        
         <TextInput
           style={{ flex: 1, height: 40, paddingHorizontal: 10 }}
           value={firstSection}
@@ -86,7 +69,7 @@ const Getcar = () => {
       </View>
       <Button
         title="Search"
-        onPress={()=>{handleSearch() , navigation.navigate('Confirm')}}
+        onPress={()=> handleSearch()}
         color="black"
       />
       <View style={{ bottom:-250, width: 422 }}>
@@ -97,3 +80,4 @@ const Getcar = () => {
 };
 
 export default Getcar;
+

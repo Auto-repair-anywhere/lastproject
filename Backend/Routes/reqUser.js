@@ -1,9 +1,10 @@
-const express=require('express')
-const{ getRequests }= require('../controller/requestUser')
+const express = require('express');
+const { getRequests, createRequest } = require('../controller/requestUser');
 
+const requestRouter = express.Router();
 
-const requestRouter=express.Router()
+requestRouter.get('/getall/:id', getRequests);
 
-requestRouter.get('/getall/:id',getRequests)
+requestRouter.post('/create', createRequest);
 
-module.exports=requestRouter
+module.exports = requestRouter;
