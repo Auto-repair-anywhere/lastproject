@@ -1,7 +1,9 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 export default function LandingPage(){
+  const navigation = useNavigation();
+
 return (
     <SafeAreaView>
         <View>
@@ -17,7 +19,7 @@ return (
                 </Text>
             </View>
             <TouchableOpacity style={styles.btn}
-            onPress={()=>{}}>
+            onPress={()=>{navigation.navigate('tips')}}>
                 <Text style={styles.btnText}>
                     Let's go 
                 </Text>
@@ -30,6 +32,7 @@ const styles=StyleSheet.create({
     content:{
         padding:24,
         justifyContent:'space-between',   
+        backgroundColor:"white"
     },
     header:{
         paddingHorizontal: 24,
@@ -59,7 +62,8 @@ const styles=StyleSheet.create({
     },
     heroImg:{
         width: '100%',
-        height: 400,
+        height: 500,
+        resizeMode:"fit"
     },
     appName:{
         backgroundColor:'#fff2dd',
@@ -77,7 +81,7 @@ const styles=StyleSheet.create({
 
     },
     btn:{
-        backgroundColor:'#56409e',
+        backgroundColor:'rgb(58,159,253)',
         paddingVertical: 12,
         paddingHorizontal: 14,
         alignItems :'center',
@@ -85,7 +89,7 @@ const styles=StyleSheet.create({
         borderRadius: 12,
     },
     btnText:{
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '500',
         color: '#fff',
     }

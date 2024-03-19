@@ -19,7 +19,8 @@ import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
-
+import LandingPage from './components/ComponentsAchref/LandingPage.jsx';
+import Onboarding from './components/auth/tipGEner.jsx'
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -38,7 +39,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="LandingPage"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -81,6 +82,11 @@ const App = () => {
           component={ChatDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+        <Stack.Screen
+          name="tips"
+          component={Onboarding}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
          <Stack.Screen
           name="chatlist"
           component={ChatList}
@@ -119,6 +125,11 @@ const App = () => {
          <Stack.Screen
           name="Payment"
           component={Payment}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="LandingPage"
+          component={LandingPage}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
 
