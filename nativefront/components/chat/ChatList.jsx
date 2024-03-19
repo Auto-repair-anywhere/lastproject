@@ -1,34 +1,28 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import { IP } from '../../ip.json';
+import { IP } from '../../Backend/ip.json';
 
 import axios from 'axios';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import io from 'socket.io-client'
-
+import io from 'socket.io-client'
+const socket = io.connect(`http://${IP}:8080`)
 const ChatList = ({ navigation }) => {
 
   const [chatData, setChatData] = useState([]);
-  const [newMessageNotification, setNewMessageNotification] = useState(false); // State for new message notification
+  const [newMessageNotification, setNewMessageNotification] = useState(false); 
   const flatListRef = useRef(null); 
-  const socket = useRef(null); 
+
   useEffect(() => {
   
-     socket.current = io(`http://${IP}:8080`);
      fetchChats();
      scrollToBottom();
-  
-     socket.current.on('newMessage', () => {
-       fetchChats(); 
-       setNewMessageNotification(true); // Set new message notification flag
-     });
- 
+     socket.on("newMessage", (data) => {
+      console.log(data)
+      setNewMessageNotification(true);
+    });
+     
+   }, [socket]);
 
-     return () => {
-       
-       socket.current.disconnect();
-     };
-   }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -40,12 +34,12 @@ const ChatList = ({ navigation }) => {
       const conversations = await Promise.all(response.data.map(async conversation => {
         const lastMessageResponse = await axios.get(`http://${IP}:8080/chat/lastmessage/${1}/${conversation.id}`);
         const lastMessage = lastMessageResponse.data;
-        const id = conversation.id
+        const id = conversation.id;
         if (conversation.user1Id === 1) {
-          return {...conversation.user2,lastMessage,...id};
+          return { ...conversation.user2, lastMessage, ...id };
         }
         if (conversation.user2Id === 1) {
-          return {...conversation.user1,lastMessage,...id};
+          return { ...conversation.user1, lastMessage, ...id };
         }
         return null;
       }));
@@ -86,7 +80,7 @@ const ChatList = ({ navigation }) => {
           <Text style={styles.timestamp}>{getTimeFromDate(item.lastMessage.createdAt)}</Text>
         </View>
       </TouchableOpacity>
-      {newMessageNotification && ( // Render notification if there's a new message
+      {newMessageNotification && ( 
         <View style={styles.notificationBadge} />
       )}
       <TouchableOpacity onPress={() => handleDeleteConversation(item.id)} style={styles.deleteButton}>

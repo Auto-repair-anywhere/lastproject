@@ -34,6 +34,7 @@
     "react-native-gesture-handler": "~2.14.0",
     "react-native-paper": "^5.12.3",
     "react-native-swiper": "^1.6.0",
+    "socket.io-client": "^4.7.5"
     "react-native-maps": "1.10.0",
     "expo-location": "~16.5.5"
   },
