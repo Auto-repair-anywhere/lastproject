@@ -5,10 +5,11 @@ import CustomButton from '../common/CustomButton';
 import AppBar from '../common/AppBar';
 import { useRoute } from '@react-navigation/native';
 
+const backgroundImg = require('../../assets/images/background_image.png');
 
 const CreateBreakdownScreen = ({ navigation }) => {
   const route = useRoute();
-  const { type, problem, spareTireOption, parkingGarageOption } = route.params;
+  const { type, problem, spareTireOption, parkingGarageOption, carData } = route.params;
 
   return (
     <ImageBackground
@@ -24,7 +25,8 @@ const CreateBreakdownScreen = ({ navigation }) => {
               type: type,
               problem: problem,
               spareTireOption: spareTireOption,
-              parkingGarageOption: parkingGarageOption
+              parkingGarageOption: parkingGarageOption,
+              carData: carData
             })}
         />
           <View style={styles.orContainer}>

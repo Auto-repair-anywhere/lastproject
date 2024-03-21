@@ -3,14 +3,13 @@ const { Request } = require('../db/index');
 const createRequest = async (req, res) => {
     try {
         const { brand, problem, description, moredescription, milage, time, userId, latitude, longitude } = req.body;
-        const status = "waiting";
+
         const newRequest = await Request.create({
             brand,
             problem,
             description,
             moredescription,
             milage,
-            status,
             time,
             userId,
             latitude,
@@ -23,7 +22,6 @@ const createRequest = async (req, res) => {
         res.status(500).json({ message: 'Failed to create request', error: error.message });
     }
 };
-
 
 const getRequests = async (req, res) => {
     try {

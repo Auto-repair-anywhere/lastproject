@@ -22,6 +22,7 @@ const signupUser = async (req, res) => {
         console.error('Error in registering user:', err);;
     }
 }
+
 const loginUser = async (req, res) => {
     try {
         const email = req.body.email
@@ -48,9 +49,9 @@ const loginUser = async (req, res) => {
 
 async function addProfessionelPosition(req, res) {
     try {
-        const { latitude, longitude, id_driver } = req.body;
+        const { latitude, longitude, id_user } = req.body;
 
-        const existingUser = await connection.User.findOne({ where: { iduser: id_driver } });
+        const existingUser = await connection.User.findOne({ where: { iduser: id_user } });
 
         if (existingUser) {
             await existingUser.update({ latitude, longitude });
