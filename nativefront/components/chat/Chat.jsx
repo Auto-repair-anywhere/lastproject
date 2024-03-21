@@ -3,21 +3,26 @@ import { View, Text, Pressable, Image, StyleSheet, TextInput, ScrollView } from 
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { IP } from '../../ip.json';
-
+import io from 'socket.io-client'
+const socket = io.connect(`http://${IP}:8080`)
 const ChatDetail = ({ route }) => {
   const { senderid, user2Id, receiverName } = route.params;
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [convid, setConvid] = useState(1);
+  const [selectedImageUri, setSelectedImageUri] = useState(null)
   const [lastDisplayedDate, setLastDisplayedDate] = useState(null); 
-  const scrollViewRef = useRef(null); // Ref for ScrollView
+  const scrollViewRef = useRef(null); 
 
   useEffect(() => {
+    socket.on("newMessage", (data) => {
+    
+    })
     fetchMessagesBetweenUsers();
     scrollToBottom();
   }, []);
 
-
+console.log("sender usr",user2Id,senderid);
   const fetchMessagesBetweenUsers = async () => {
     try {
       const response = await axios.get(`http://${IP}:8080/chat/messages/${senderid}/${user2Id}`);
@@ -37,6 +42,9 @@ const ChatDetail = ({ route }) => {
         conversationId: convid,
         recipientId: user2Id
       });
+      
+
+    
       fetchMessagesBetweenUsers();
       setMessage('');
     } catch (error) {
@@ -56,38 +64,37 @@ const ChatDetail = ({ route }) => {
       allowsEditing: true,
       quality: 1,
     });
-
+  
     if (!result.cancelled) {
-      const imageUrl = result.uri;
-      const newMessage = { id: messages.length + 1, image: imageUrl, sender: senderid, timestamp: getTime() };
-      setMessages([...messages, newMessage]);
-
+      setSelectedImageUri(result.uri); 
       try {
-        
         const formData = new FormData();
         formData.append('image', {
           uri: result.uri,
-          type: 'image/jpeg', 
+          type: 'image/jpeg',
           name: 'photo.jpg',
         });
-
-        await axios.post(`http://${IP}:8080/chat/messages/send`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          data: {
-            senderId: senderid,
-            conversationId: convid,
-            recipientId: user2Id
-          }
-        });
+  
+        // await axios.post(`http://${IP}:8080/chat/messages/send`, formData, {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        //   data: {
+        //     senderId: senderid,
+        //     conversationId: convid,
+        //     recipientId: user2Id
+        //   }
+        // });
+  
+        
+        
       } catch (error) {
         console.error('Error sending image:', error);
       }
     }
-  };
 
-  const getTime = () => {
+  };
+   const getTime = () => {
     const now = new Date();
     return now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   };
@@ -111,28 +118,34 @@ const ChatDetail = ({ route }) => {
         <Text style={styles.receiverName}>{receiverName}</Text>
       </View>
       <ScrollView 
-        ref={scrollViewRef} 
-        contentContainerStyle={styles.chatContainer}
-        onContentSizeChange={() => scrollToBottom()} 
+  ref={scrollViewRef} 
+  contentContainerStyle={styles.chatContainer}
+  onContentSizeChange={() => scrollToBottom()} 
+>
+  {messages.map((msg, index) => (
+    <View key={msg.id}>
+      {(index === 0 || getDateFromDate(msg.createdAt) !== getDateFromDate(messages[index - 1].createdAt)) && (
+        <Text style={styles.dateText}>{getDateFromDate(msg.createdAt)}</Text>
+      )}
+      <View
+        style={[
+          styles.messageContainer,
+          msg.senderId === senderid ? styles.senderMessage : styles.receiverMessage
+        ]}
       >
-        {messages.map((msg, index) => (
-          <View key={msg.id}>
-            {(index === 0 || getDateFromDate(msg.createdAt) !== getDateFromDate(messages[index - 1].createdAt)) && (
-              <Text style={styles.dateText}>{getDateFromDate(msg.createdAt)}</Text>
-            )}
-            <View
-              style={[
-                styles.messageContainer,
-                msg.senderId === senderid ? styles.senderMessage : styles.receiverMessage
-              ]}
-            >
-              {msg.text && <Text style={msg.senderId === senderid ? styles.sendermessageText : styles.receivermessageText}>{msg.text}</Text>}
-              {msg.image && <Image source={{ uri: msg.image }} style={styles.image} />}
-              <Text style={styles.timestamp}>{getTimeFromDate(msg.createdAt)}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+        {msg.text && <Text style={msg.senderId === senderid ? styles.sendermessageText : styles.receivermessageText}>{msg.text}</Text>}
+        {msg.image && <Image source={{ uri: msg.image }} style={styles.image} />}
+        <Text style={styles.timestamp}>{getTimeFromDate(msg.createdAt)}</Text>
+      </View>
+    </View>
+  ))}
+  {selectedImageUri && (
+    <View style={styles.messageContainer}>
+      <Image source={{ uri: selectedImageUri }} style={styles.image} />
+      <Text style={styles.timestamp}>{getTime()}</Text>
+    </View>
+  )}
+</ScrollView>
       <View style={styles.inputArea}>
         <Pressable onPress={handleImageSend} style={styles.attachButton}>
           <Image

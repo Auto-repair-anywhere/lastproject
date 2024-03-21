@@ -13,7 +13,6 @@ import ChatDetail from './components/chat/Chat.jsx'
 import ChatList from './components/chat/ChatList.jsx'
 import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
-import ServiceePro from './components/auth/servicepro.jsx';
 import Tire from './components/auth/tirePanne.jsx';
 import Professional from './components/requests/Professional.jsx';
 import RequestDetail from './components/requests/RequestDetail.jsx';
@@ -121,11 +120,7 @@ const App = () => {
           component={Screenn}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
-          name="proServ"
-          component={ServiceePro}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
+
         <Stack.Screen
           name="Cassistance"
           component={Servicee}
