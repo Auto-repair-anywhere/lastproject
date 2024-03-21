@@ -3,6 +3,7 @@ import { View, Text, Pressable, Image, StyleSheet, TextInput, ScrollView } from 
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { IP } from '../../ip.json';
+
 import io from 'socket.io-client'
 const socket = io.connect(`http://${IP}:8080`)
 const ChatDetail = ({ route }) => {
