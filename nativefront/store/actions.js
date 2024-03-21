@@ -1,8 +1,8 @@
 import axios from "axios";
-const baseURL = 'http://192.168.235.11:8080/api/';
+const baseURL = 'http://10.0.2.2:8080/';
 
 export function sendPostRequest(data) {
-  const acceptURL = `${baseURL}breakdowns`;
+  const acceptURL = `${baseURL}reqU/create`;
 
   return new Promise((resolve, reject) => {
     axios.post(acceptURL, data)
@@ -44,7 +44,7 @@ export function getProfessionelPosition(id) {
 export function addProfessionelPosition(data) {
   console.log("data");
   console.log(data);
-  const addPositionURL = `${baseURL}professionel_positions`;
+  const addPositionURL = `${baseURL}auth/professionel_positions`;
   return new Promise((resolve, reject) => {
     axios.post(addPositionURL, data)
       .then(response => {

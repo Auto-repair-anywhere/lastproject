@@ -5,12 +5,13 @@ import AppBar from '../common/AppBar';
 import MapView, { Marker } from 'react-native-maps';
 import CustomButton from '../common/CustomButton';
 import * as Location from 'expo-location';
-import { sendPostRequest } from '../../store/actions';
 import { useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { sendPostRequest } from '../../store/actions';
 
 const DetailsScreen = ({ navigation }) => {
   const route = useRoute();
-  const { type, problem, spareTireOption, parkingGarageOption } = route.params;
+  const { type, problem, spareTireOption, parkingGarageOption, carData } = route.params;
 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const mapViewRef = useRef(null);
@@ -58,24 +59,57 @@ const DetailsScreen = ({ navigation }) => {
     getUserLocation();
   }, []); 
 
-  const handleFindMePress = () => {
+
+
+
+  const handleFindMePress = async () => {
+    console.log("handleFindMePress");
     setLoading(true);
-    const data = {
-      latitude: selectedLocation?.latitude,
-      longitude: selectedLocation?.longitude,
-      driverId: 123
-    };
-    sendPostRequest(data)
-      .then((res) => {
-        navigation.navigate('DetailsRequest', { item : res.data });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      console.log("userId");
+      console.log(userId);
+      console.log(problem);
+      console.log(type);
+      console.log(parkingGarageOption);
+      const today = new Date();
+      const formattedDate = today.toISOString().split('.')[0]; 
+  
+      const parkingDescription = parkingGarageOption === "Yes" ? 'Le véhicule doit être garé dans un garage.' : 'Le véhicule n\'a pas besoin d\'être garé dans un garage.';
+  
+      const data = {
+        brand: JSON.stringify(carData), 
+        problem: problem,
+        description: spareTireOption === "Yes" ? 'Pneu de secours nécessaire' : 'Pas de pneu de secours nécessaire',
+        moredescription: parkingDescription,
+        milage: 50000,
+        time: formattedDate,
+        userId: userId || "0",
+        latitude: selectedLocation?.latitude,
+        longitude: selectedLocation?.longitude,
+      };
+      console.log("data");
+      console.log(data);
+      sendPostRequest(data)
+        .then((res) => {
+          console.log("res data");
+          console.log(res);
+          navigation.navigate('DetailsRequest', { item: res });
+        })
+        .catch(error => {
+          console.log(error.body);
+          console.error('Erreur :', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      console.error('Erreur lors de la récupération de userId :', error);
+      setLoading(false);
+    }
   };
+  
 
   return (
     <View style={{ flex: 1 }}>

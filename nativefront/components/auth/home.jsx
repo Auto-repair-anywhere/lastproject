@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { carData } = route.params;
+
 
   const renderButton = (imageSource, buttonText, screenName, type) => (
     <View style={styles.box}>
@@ -14,13 +17,13 @@ const HomeScreen = () => {
   
       <TouchableOpacity
         style={styles.centeredButton}
-        onPress={() => navigation.navigate(screenName, { type })}
+        onPress={() => navigation.navigate(screenName, { type : type , carData : carData })}
       >
         <Text style={styles.centeredButtonText}>{buttonText}</Text>
       </TouchableOpacity>
     </View>
   );
-
+  
   return (
     <View style={styles.container}>
      {renderButton(

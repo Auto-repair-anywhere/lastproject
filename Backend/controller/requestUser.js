@@ -24,7 +24,6 @@ const createRequest = async (req, res) => {
     }
 };
 
-
 const getRequests = async (req, res) => {
     try {
         const requests = await Request.findAll({

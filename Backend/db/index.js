@@ -170,7 +170,7 @@ const Request = connection.define('request', {
     autoIncrement: true,
   },
   brand: {
-    type: DataTypes.STRING(45),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   problem: {
@@ -431,7 +431,7 @@ Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
 
 
-//connection.sync({alter: true})
+connection.sync({alter: true})
 
 module.exports = {
   Admin,

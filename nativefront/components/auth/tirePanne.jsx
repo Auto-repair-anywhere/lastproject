@@ -6,7 +6,7 @@ import { RadioButton } from 'react-native-paper';
 const Tire = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { problem, type } = route.params;
+  const { problem, type, carData } = route.params;
 
   const [checkedTire, setCheckedTire] = useState(null);
   const [selectedSpareTireOption, setSelectedSpareTireOption] = useState(null);
@@ -117,7 +117,8 @@ const Tire = () => {
                 type: type,
                 problem: problem,
                 spareTireOption: selectedSpareTireOption,
-                parkingGarageOption: selectedParkingGarageOption
+                parkingGarageOption: selectedParkingGarageOption,
+                carData: carData
               })}
             >
               <Text style={{

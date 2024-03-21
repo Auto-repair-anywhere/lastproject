@@ -1,31 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import Chat from './components/chat/Chat.jsx'
 import Getcar from './components/gitcar/Getcar.jsx';
 import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './components/auth/home.jsx';
 import Login from './components/auth/login.jsx';
 import Signup from './components/auth/signup.jsx';
 import Screenn from './components/auth/home2.jsx';
-import ChatDetail from './components/chat/Chat.jsx'
 import ChatList from './components/chat/ChatList.jsx'
-import Nav from './components/auth/bottolnav.jsx';
 import Servicee from './components/auth/servicepage.jsx';
-import Tire from './components/auth/tirePanne.jsx';
+import ServiceePro from './components/auth/servicepro.jsx';
 import Professional from './components/requests/Professional.jsx';
 import RequestDetail from './components/requests/RequestDetail.jsx';
 import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
-import ProHome from './components/auth/professionalHome.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
-import Forum from './components/forum/Forum.jsx'
-import PostDetail from './components/forum/PostDetail.jsx';
-import CreateBreakdownScreen from './components/CreateBreakdownScreen';
-import DetailsScreen from './components/DetailsScreen';
-import DetailsRequestScreen from './components/DetailsRequestScreen';
+import HomeScreen from './components/auth/home.jsx';
+import Tire from './components/auth/tirePanne.jsx';
+import CreateBreakdownScreen from './components/CreateBreakdownScreen/index.js';
+import DetailsScreen from './components/DetailsScreen/index.js';
+import DetailsRequestScreen from './components/DetailsRequestScreen/index.js';
+import * as Location from 'expo-location';
+import { addProfessionelPosition } from './store/actions.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -40,26 +38,65 @@ const LogoTitle = () => (
 
 const App = () => {
 
+ /* useEffect(() => {
+    const getLocation = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.error('Permission to access location was denied');
+          return;
+        }
+        const userId = await AsyncStorage.getItem('userId');
+
+        let location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+        addProfessionelPosition({
+          latitude,
+          longitude,
+          id_driver: userId 
+        })
+        .then((response) => {
+          console.log('Professionel position added successfully:', response);
+        })
+        .catch((error) => {
+          console.error('Error adding professionel position:', error);
+        });
+      } catch (error) {
+        console.error('Error getting user location:', error);
+      }
+    };
+  
+    getLocation(); // Call initially
+  
+    const intervalId = setInterval(() => {
+      getLocation(); // Call every 5 seconds
+    }, 5000);
+  
+    return () => {
+      clearInterval(intervalId); // Cleanup interval on unmount
+    };
+  }, []);*/
+  
 
   return (
     <NavigationContainer>
-
-      <Stack.Navigator
-        initialRouteName="home"
+       
+     <Stack.Navigator
+       initialRouteName="Login"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
-            height: 140,
-            elevation: 0,
-            shadowOpacity: 0,
+            height: 140, 
+            elevation: 0, 
+            shadowOpacity: 0, 
           },
-          headerTintColor: 'black', // Adjust text color
+          headerTintColor: 'black', 
           headerTitleStyle: {
             fontWeight: 'bold',
           },
         }}
       >
-         <Stack.Screen
+          <Stack.Screen
           name="CreateBreakdown"
           options={{ headerShown: false }}
           component={CreateBreakdownScreen} />
@@ -72,19 +109,20 @@ const App = () => {
           options={{ headerShown: false }}
           component={DetailsRequestScreen} />
 
+
         <Stack.Screen
           name="home"
           component={HomeScreen}
         />
-        <Stack.Screen
+         <Stack.Screen
           name="getcar"
           component={Getcar}
         />
-        <Stack.Screen
+          <Stack.Screen
           name="Confirm"
           component={Confirmcar}
         />
-
+      
         <Stack.Screen
           name="Buttom"
           component={Buttom}
@@ -100,19 +138,14 @@ const App = () => {
           component={Signup}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
-          name="Chat"
-          component={ChatDetail}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-        <Stack.Screen
-          name="chatlist"
-          component={ChatList}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-        <Stack.Screen
+         <Stack.Screen
           name="tire"
           component={Tire}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="Chatlist"
+          component={ChatList}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
         <Stack.Screen
@@ -120,18 +153,22 @@ const App = () => {
           component={Screenn}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-
+        <Stack.Screen
+          name="proServ"
+          component={ServiceePro}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
         <Stack.Screen
           name="Cassistance"
           component={Servicee}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
+          <Stack.Screen
           name="Professional"
           component={Professional}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
+          <Stack.Screen
           name="RequestDetail"
           component={RequestDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
@@ -141,31 +178,15 @@ const App = () => {
           component={RequestUser}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
+         <Stack.Screen
           name="Payment"
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
-          name="Forum"
-          component={Forum}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
 
-        <Stack.Screen
-          name="PostDetail"
-          component={PostDetail}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-        <Stack.Screen
-          name="ProHome"
-          component={ProHome}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
        
-
+       
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 };
