@@ -3,13 +3,14 @@ const { Request } = require('../db/index');
 const createRequest = async (req, res) => {
     try {
         const { brand, problem, description, moredescription, milage, time, userId, latitude, longitude } = req.body;
-
+        const status = "waiting";
         const newRequest = await Request.create({
             brand,
             problem,
             description,
             moredescription,
             milage,
+            status,
             time,
             userId,
             latitude,
