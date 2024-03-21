@@ -4,6 +4,11 @@ import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { IP } from '../../ip.json';
 
+<<<<<<< HEAD
+=======
+import io from 'socket.io-client'
+const socket = io.connect(`http://${IP}:8080`)
+>>>>>>> 4ca681f6e6422f35209861020e6fde1a4a8edae9
 const ChatDetail = ({ route }) => {
   const { senderid, user2Id, receiverName } = route.params;
   const [message, setMessage] = useState('');
