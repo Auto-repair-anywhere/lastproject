@@ -24,8 +24,7 @@ import ProHome from './components/auth/professionalHome.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
 import Forum from './components/forum/Forum.jsx'
 import PostDetail from './components/forum/PostDetail.jsx';
-
-
+import EditProfileUser from './components/EditProfileUser.jsx'
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -44,7 +43,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="Forum"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -59,8 +58,8 @@ const App = () => {
         }}
       >
          <Stack.Screen
-          name="getcar"
-          component={Getcar}
+          name="Forum"
+          component={Forum}
         />
           <Stack.Screen
           name="Confirm"
@@ -132,17 +131,24 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Forum"
           component={Forum}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
+        /> */}
 
       <Stack.Screen
           name="PostDetail"
           component={PostDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+              <Stack.Screen
+          name="EditProfileUser"
+          component={EditProfileUser}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+
+       
           <Stack.Screen
           name="ProHome"
           component={ProHome}

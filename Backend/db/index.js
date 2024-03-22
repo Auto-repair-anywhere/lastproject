@@ -109,11 +109,11 @@ const Forum = connection.define('forum', {
       autoIncrement: true
   },
   title: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(100),
       allowNull: false
   },
   content: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.TEXT,
       allowNull: false
   },
   image_url: {
