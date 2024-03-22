@@ -43,7 +43,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Forum"
+       initialRouteName="EditProfileUser"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -58,8 +58,8 @@ const App = () => {
         }}
       >
          <Stack.Screen
-          name="Forum"
-          component={Forum}
+          name="EditProfileUser"
+          component={EditProfileUser}
         />
           <Stack.Screen
           name="Confirm"
@@ -131,22 +131,22 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Forum"
           component={Forum}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        /> */}
+        />
 
       <Stack.Screen
           name="PostDetail"
           component={PostDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
-              <Stack.Screen
+              {/* <Stack.Screen
           name="EditProfileUser"
           component={EditProfileUser}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
+        /> */}
 
        
           <Stack.Screen

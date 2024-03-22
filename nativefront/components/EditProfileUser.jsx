@@ -19,9 +19,9 @@ const EditProfileUser =  () => {
             const response = await axios.put(`http://${IP}:8080/user/put/${1}`, {
                 firstname:firstname,
                 lastname:lastname,
+                Number:Number,
                 email:email,
-                password:password,
-                Number:Number  
+                password:password
             });
             console.log(response.data); 
         } catch (error) {
@@ -110,7 +110,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     headerText: {
-        color: '#007bff'
+        color: '#007bff',
+        fontSize: 25,
+
+
     },
     content: {
         flexDirection: 'row',
@@ -122,13 +125,17 @@ const styles = StyleSheet.create({
         padding: 14
     },
     title: {
-        color: '#007bff'
+        color: '#007bff',
+        fontSize: 20,
+
+
     },
     input: {
         borderBottomWidth: 2,
         borderBottomColor: '#808080',
-        fontSize: 20,
-        marginVertical: 8
+        fontSize: 10,
+        marginVertical: 8,
+        textAlign:"center",
     },
     buttonContainer: {
         flexDirection: 'row',
