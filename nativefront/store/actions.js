@@ -15,10 +15,15 @@ export function sendPostRequest(data) {
   });
 }
 
-export function acceptBreakdown(id) {
-  const acceptURL = `${baseURL}breakdowns/${id}/accept`;
+export function acceptBreakdown(requestId, professionalId) {
+  const acceptURL = `${baseURL}req/acceptRequest`;
+  const data = {
+    requestId: requestId,
+    professionalId: professionalId
+  };
+
   return new Promise((resolve, reject) => {
-    axios.put(acceptURL)
+    axios.post(acceptURL, data)
       .then(response => {
         resolve(response.data);
       })
@@ -28,8 +33,9 @@ export function acceptBreakdown(id) {
   });
 }
 
+
 export function getProfessionelPosition(id) {
-  const positionURL = `${baseURL}professionel_positions/${id}`;
+  const positionURL = `${baseURL}auth/professionel_positions/${id}`;
   return new Promise((resolve, reject) => {
     axios.get(positionURL)
       .then(response => {

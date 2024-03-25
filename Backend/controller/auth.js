@@ -8,7 +8,7 @@ console.log("secret",secretKey)
 
 const signupUser = async (req, res) => {
     try {
-        const { firstname, lastname,email,password,image} = req.body
+        const { firstname, lastname,email,password,image, role} = req.body
 
     const newUser = await connection.User.create({
         firstname:firstname,
@@ -16,6 +16,7 @@ const signupUser = async (req, res) => {
         email:email,
         password: await bcrypt.hash(password, 10),
         image: image,
+        role:role
         })
         return res.status(200).json(newUser)
     } catch (err) {
@@ -68,11 +69,12 @@ async function addProfessionelPosition(req, res) {
 
 async function getProfessionelPositionById(req, res) {
     try {
-        const { idUser } = req.params;
-
+        const { id_driver } = req.params;
+        console.log("id_professionel");
+        console.log(id_driver);
         const position = await connection.User.findOne({
             where: {
-                iduser: idUser
+                iduser: id_driver
             }
         });
 
@@ -86,7 +88,6 @@ async function getProfessionelPositionById(req, res) {
         res.status(500).json({ message: 'Failed to get professional position', error: error.message });
     }
 }
-
 
 
 module.exports={ signupUser ,loginUser,getProfessionelPositionById, addProfessionelPosition}

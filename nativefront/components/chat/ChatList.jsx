@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import { IP } from '../../Backend/ip.json';
+import { IP } from '../../ip.json';
 
 import axios from 'axios';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

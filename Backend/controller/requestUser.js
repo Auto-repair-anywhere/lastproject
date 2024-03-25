@@ -12,9 +12,9 @@ const createRequest = async (req, res) => {
             milage,
             status,
             time,
-            userId,
             latitude,
-            longitude
+            longitude,
+            userId 
         });
 
         res.status(201).send(newRequest);
@@ -38,4 +38,6 @@ const getRequests = async (req, res) => {
     }
 };
 
+
 module.exports = { getRequests, createRequest };
+

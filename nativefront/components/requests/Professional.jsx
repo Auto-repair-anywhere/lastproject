@@ -1,46 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import axios from 'axios'
-import {IP} from '../../ip.json'
+import { IP } from '../../ip.json'
 import { useNavigation } from '@react-navigation/native';
 
-const Professional = () => { // Assuming `id` and `navigation` are passed as props
+const Professional = () => {
   const [requests, setRequests] = useState([]);
   const navigation = useNavigation();
-  
+
   useEffect(() => {
-    axios.get(`http://${IP}:8080/req/getall/${1}`)
+    axios.get(`http://${IP}:8080/req/getRequests`)
       .then(result => {
         setRequests(result.data);
-        console.log(requests);
       })
       .catch(err => {
-        console.log("Error fetching :", err);
+        console.log("Error fetching requests:", err);
       });
-  },[]);
-  
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Requests List</Text>
-      {requests.map((e) => (
-        <View style={styles.requestContainer}>
-          <View style={styles.requestInfo}>
-            <View style={styles.requestIdContainer}>
-              <Text style={styles.requestId}>REQUEST ID:{1} </Text>
+      <ScrollView>
+      {requests.map((request, index) => (
+        <View >
+          <View style={styles.requestContainer}>
+            <View style={styles.requestInfo}>
+              <View style={styles.requestIdContainer}>
+                <Text style={styles.requestId}>REQUEST ID: {request.idrequest}</Text>
+              </View>
+              <Text style={styles.requestDetail}>Brand: {request?.brand}</Text>
+              <Text style={styles.requestDetail}>Category: {request?.problem}</Text>
+              <Text style={styles.requestDetail}>Description: {request?.description}</Text>
+              <Text style={styles.requestDetail}>More Description: {request?.moredescription}</Text>
             </View>
-            <Text style={styles.requestDetail}>First Name:{e.user.firstname}</Text>
-            <Text style={styles.requestDetail}>Last Name:{e.user.lastname}</Text>
-            <Text style={styles.requestDetail}>Category:{e.problem} </Text>
-            <Text style={styles.requestDetail}>Date: 20-11-2021</Text>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RequestDetail')}>
-              <Text style={styles.viewDetails}>View Details</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('DetailsRequest', { item : request })}>
+                <Text style={styles.viewDetails}>View Details</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      ))} 
+      ))}
+      </ScrollView>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -59,7 +66,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 15,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -86,13 +92,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: '#000',
   },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: 'rgb(58,159,253)',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
-    width:130
   },
   viewDetails: {
     color: '#fff',

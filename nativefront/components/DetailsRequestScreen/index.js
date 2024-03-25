@@ -8,11 +8,12 @@ import CustomButton from '../common/CustomButton';
 import { heightPercentageToDP, widthPercentageToDP } from '../utils/global_styles';
 import { acceptBreakdown, getProfessionelPosition } from '../../store/actions';
 import { useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DetailsRequestScreen = ({  }) => {
   const route = useRoute();
-  const { item } = route.params;
-  console.log("item");
+  const [item, setItem] = useState(route.params?.item);
+    console.log("item");
   console.log(item);
   /*const [clientLocation, setClientLocation] = useState({
     latitude: 0, 
@@ -48,13 +49,14 @@ const DetailsRequestScreen = ({  }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAccept = () => {
+  const handleAccept = async () =>  {
     setIsLoading(true);
-    console.log("item.id");
-    console.log(item.id);
-    acceptBreakdown(item.id)
+    const professionalId = await AsyncStorage.getItem('userId');
+
+    acceptBreakdown(item?.idrequest,professionalId)
       .then((res) => {
-        setItem(res?.data)
+        console.log("acceptBreakdown");
+        setItem(res)
         console.log('Breakdown accepted successfully');
       })
       .catch(error => {
@@ -64,6 +66,7 @@ const DetailsRequestScreen = ({  }) => {
         setIsLoading(false);
       });
   };
+
   const mapViewRef = useRef(null);
 
   useEffect(() => {
@@ -79,8 +82,10 @@ const DetailsRequestScreen = ({  }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getProfessionelPosition(item?.driverId)
+      getProfessionelPosition(item?.id_professionel)
         .then((res) => {
+          console.log("getProfessionelPosition");
+          console.log(res.data);
           const { latitude, longitude } = res.data;
           setDriverLocation({ latitude, longitude });
         })
@@ -98,30 +103,30 @@ const DetailsRequestScreen = ({  }) => {
 <View style={styles.container}>
   {isLoading && <ActivityIndicator size="large" color="blue" />}
   <View style={styles.mapViewContainer}>
-    <MapView
+      <MapView
       ref={mapViewRef}
       style={{ flex: 1 }}
       initialRegion={{
-        latitude: item?.latitude, 
-        longitude: item?.longitude, 
+        latitude: parseFloat(item?.latitude), 
+        longitude: parseFloat(item?.longitude), 
         latitudeDelta: 0.5,
         longitudeDelta: 0.5,
       }}
     >
       <Marker coordinate={{
-        longitude: item?.longitude,
-        latitude: item?.latitude
+        longitude: parseFloat(item?.longitude),
+        latitude: parseFloat(item?.latitude)
       }} title="Client" pinColor="blue" />
       <Marker coordinate={driverLocation} title="Driver" pinColor="green" />
     </MapView>
-  </View>
-  <View style={styles.textContainer}>
-    <Text style={styles.title}>{item?.brand && JSON.parse(item.brand).carname}</Text>
-    <Text style={styles.subTitle}>{item?.brand && JSON.parse(item.brand).carplate}</Text>
+</View>
+<View style={styles.textContainer}>
+    
+    <Text style={styles.title}>{item?.brand}</Text>
     <Text style={styles.description}>{item?.problem}</Text>
     <Text style={styles.description}>{item?.description}</Text>
     <Text style={styles.description}>{item?.moredescription}</Text>
-    {item?.status == "in_progress" && <CustomButton
+    {item?.status == "waiting" && <CustomButton
       text={"Accept"}
       buttonStyle={{ marginHorizontal: widthPercentageToDP(60) }}
       onPress={handleAccept}

@@ -24,7 +24,13 @@ const Login = () => {
         await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
         await AsyncStorage.setItem('userId', JSON.stringify(response.data.user.iduser));
         console.log('Login successful:');
-        navigation.navigate('getcar');
+        
+        const role = response.data.user.role;
+        if (role === 'user') {
+          navigation.navigate('getcar');
+        } else {
+          navigation.navigate('Professional');
+        }
       } else {
         console.log('User ID is undefined in the response data.');
       }
@@ -32,6 +38,7 @@ const Login = () => {
       console.log('Login error:', error);
     }
   };
+  
   
   return (
     <KeyboardAvoidingView
