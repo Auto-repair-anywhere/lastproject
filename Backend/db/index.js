@@ -217,11 +217,26 @@ const Request = connection.define('request', {
     type: DataTypes.BOOLEAN,
     allowNull: true,
   },
+  id_professionel: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'User',
+      key: 'iduser'
+    }
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'User',
+      key: 'iduser'
+    }
+  }
 }, {
   freezeTableName: true,
   timestamps: false,
 });
-
 
 
 const Images = connection.define('images', {

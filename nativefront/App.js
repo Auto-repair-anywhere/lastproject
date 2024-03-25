@@ -38,7 +38,7 @@ const LogoTitle = () => (
 
 const App = () => {
 
- /* useEffect(() => {
+ /*useEffect(() => {
     const getLocation = async () => {
       try {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -82,7 +82,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="RequestUser"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -108,7 +108,6 @@ const App = () => {
           name="DetailsRequest" 
           options={{ headerShown: false }}
           component={DetailsRequestScreen} />
-
 
         <Stack.Screen
           name="home"
