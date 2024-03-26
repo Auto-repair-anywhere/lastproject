@@ -24,7 +24,7 @@ import DetailsRequestScreen from './components/DetailsRequestScreen/index.js';
 import * as Location from 'expo-location';
 import { addProfessionelPosition } from './store/actions.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Notifications from './components/notifications/notifications.jsx';
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -82,11 +82,11 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="noti"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
-            height: 140, 
+            height: 140,
             elevation: 0, 
             shadowOpacity: 0, 
           },
@@ -108,6 +108,10 @@ const App = () => {
           name="DetailsRequest" 
           options={{ headerShown: false }}
           component={DetailsRequestScreen} />
+           <Stack.Screen
+          name="noti" 
+          options={{ headerShown: false }}
+          component={Notifications} />
 
 
         <Stack.Screen
