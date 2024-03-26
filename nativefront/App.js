@@ -38,7 +38,7 @@ const LogoTitle = () => (
 
 const App = () => {
 
- /* useEffect(() => {
+ /*useEffect(() => {
     const getLocation = async () => {
       try {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -82,7 +82,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="noti"
+       initialRouteName="RequestUser"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -112,7 +112,6 @@ const App = () => {
           name="noti" 
           options={{ headerShown: false }}
           component={Notifications} />
-
 
         <Stack.Screen
           name="home"

@@ -68,11 +68,6 @@ const DetailsScreen = ({ navigation }) => {
   
     try {
       const userId = await AsyncStorage.getItem('userId');
-      console.log("userId");
-      console.log(userId);
-      console.log(problem);
-      console.log(type);
-      console.log(parkingGarageOption);
       const today = new Date();
       const formattedDate = today.toISOString().split('.')[0]; 
   
