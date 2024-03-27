@@ -19,6 +19,11 @@ connection.sync()
 const server = http.createServer(app);
 
 const io = socketIo(server);
+io.on("connection", (socket) => {
+  socket.on("chat_message", (data) => {
+    socket.broadcast.emit("show_notification", data);
+  });
+});
 // io.on('connection', (socket) => {
 //   console.log('A user connected');
 
