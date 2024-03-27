@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = 'http://10.0.2.2:8080/';
+const baseURL = 'http://172.20.10.2:8080/';
 
 export function sendPostRequest(data) {
   const acceptURL = `${baseURL}reqU/create`;
@@ -57,6 +57,7 @@ export function addProfessionelPosition(data) {
         resolve(response.data);
       })
       .catch(error => {
+        console.log("error",error);
         reject(error.message);
       });
   });

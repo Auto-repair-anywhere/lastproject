@@ -21,28 +21,27 @@ useEffect(()=>{
 console.log(user.iduser)
   const navigation = useNavigation()
 
-  const [firstSection, setFirstSection] = useState('');
-  const [secondSection, setSecondSection] = useState('');
-  const [car,setCar]=useState("")
-  const handleSearch = async  () => {
-    const inputValue = `${firstSection} TU ${secondSection}`;
-    axios.post(`http://${IP}:8080/findcar/car-info/${user.iduser}`,
-    {
-    licensePlate:inputValue,
-    username:"mmm",
-    serie:inputValue,
-    })
-    .then((res) => {
-      console.log("handleSearch");
-      console.log(res.data);
-      navigation.navigate('Confirm', { carData: res.data });
-    })
-    .catch((err) => {
-      console.log("err");
-      console.log(err);
-    });
-  };
-  
+    const handleSearch = async () => {
+        const inputValue = `${firstSection} TU ${secondSection}`;
+        console.log(inputValue);
+        const id = await AsyncStorage.getItem('userId');
+      
+        axios.post(`http://${IP}:8080/findcar/car-info/${id}`, {
+            licensePlate: inputValue,
+            username: "achrefff",
+            serie: inputValue,
+          })
+          .then((res) => {
+            setCar(res.data);
+            console.log(res.data);
+            
+            navigation.navigate('Confirm', { carData: res.data });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
 
 
   return (

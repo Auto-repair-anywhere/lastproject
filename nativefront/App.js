@@ -38,7 +38,7 @@ const LogoTitle = () => (
 
 const App = () => {
 
- /*useEffect(() => {
+ useEffect(() => {
     const getLocation = async () => {
       try {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -66,23 +66,23 @@ const App = () => {
       }
     };
   
-    getLocation(); // Call initially
+    getLocation(); 
   
     const intervalId = setInterval(() => {
-      getLocation(); // Call every 5 seconds
+      getLocation(); 
     }, 5000);
   
     return () => {
       clearInterval(intervalId); // Cleanup interval on unmount
     };
-  }, []);*/
+  }, []);
   
 
   return (
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="RequestUser"
+       initialRouteName="Login"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
