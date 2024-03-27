@@ -23,7 +23,7 @@ const Getcar = () => {
       
         axios.post(`http://${IP}:8080/findcar/car-info/${id}`, {
             licensePlate: inputValue,
-            username: "ccc",
+            username: "achrefff",
             serie: inputValue,
           })
           .then((res) => {

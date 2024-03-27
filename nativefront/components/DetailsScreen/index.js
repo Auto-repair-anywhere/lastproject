@@ -72,9 +72,9 @@ const DetailsScreen = ({ navigation }) => {
       const formattedDate = today.toISOString().split('.')[0]; 
   
       const parkingDescription = parkingGarageOption === "Yes" ? 'Le véhicule doit être garé dans un garage.' : 'Le véhicule n\'a pas besoin d\'être garé dans un garage.';
-  
+  console.log("carData",carData);
       const data = {
-        brand: JSON.stringify(carData), 
+        brand: "Kia", 
         problem: problem,
         description: spareTireOption === "Yes" ? 'Pneu de secours nécessaire' : 'Pas de pneu de secours nécessaire',
         moredescription: parkingDescription,
