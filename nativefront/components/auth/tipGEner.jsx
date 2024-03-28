@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { View, StyleSheet, FlatList, Animated } from "react-native";
+import { View, StyleSheet, FlatList, Animated, TouchableOpacity, Text } from "react-native";
 import Tips from "./tips";
 import slides from "./slides";
 
-export default function Onboarding() {
+export default function Onboarding({ navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
@@ -13,6 +13,15 @@ export default function Onboarding() {
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+
+  const goToNextSlide = () => {
+    if (currentIndex < slides.length - 1) {
+      slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
+    } else {
+
+      navigation.navigate('Login');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -32,6 +41,10 @@ export default function Onboarding() {
         viewabilityConfig={viewConfig}
         ref={slidesRef}
       />
+      {/* Circle button to navigate to the next slide */}
+      <TouchableOpacity style={styles.button} onPress={goToNextSlide}>
+        <Text style={styles.buttonText}>Next</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -39,5 +52,21 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    margin:'auto',
+    right:120,
+    backgroundColor: 'rgb(58,159,253)' ,
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 26,
+    width:70,
+    margin:'auto'
   },
 });

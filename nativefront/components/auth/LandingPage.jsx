@@ -42,7 +42,7 @@ const styles=StyleSheet.create({
         fontWeight:'500',
         color:'#281b52',
         textAlign:'center',
-        marginBottom:12,
+        marginBottom:8,
         lineHeight:40,
     },
     message:{
@@ -52,7 +52,7 @@ const styles=StyleSheet.create({
         fontWeight:'bold',
         color:'#9992a7',
         textAlign:'center',
-        marginTop:30
+        marginTop:10
     },
     hero:{
         backgroundColor:'#d8dffe',
@@ -62,7 +62,7 @@ const styles=StyleSheet.create({
     },
     heroImg:{
         width: '100%',
-        height: 500,
+        height: 450,
         resizeMode:"fit"
     },
     appName:{

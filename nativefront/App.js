@@ -19,8 +19,15 @@ import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
-import LandingPage from './components/ComponentsAchref/LandingPage.jsx';
+import LandingPage from './components/auth/LandingPage.jsx';
 import Onboarding from './components/auth/tipGEner.jsx'
+import Shop from './components/auth/shop/shop.jsx';
+import Details from './components/auth/shop/productDetails.jsx';
+import WishlistScreen from './components/auth/shop/wishlist.jsx';
+import HomeScreen from './components/auth/home.jsx';
+import Cart from './components/auth/shop/cart.jsx';
+import Ho from './components/auth/shop/ho.jsx';
+import Category from './components/auth/shop/category.jsx';
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -39,7 +46,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="LandingPage"
+       initialRouteName="shop"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -47,7 +54,7 @@ const App = () => {
             elevation: 0, 
             shadowOpacity: 0, 
           },
-          headerTintColor: 'black', // Adjust text color
+          headerTintColor: 'black', 
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -68,6 +75,42 @@ const App = () => {
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
         <Stack.Screen
+          name="shop"
+          component={Shop}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+
+<Stack.Screen
+          name="ho"
+          component={Ho}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="cart"
+          component={Cart}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="WishlistScreen"
+          component={WishlistScreen}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="category"
+          component={Category}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+         <Stack.Screen
+          name="details"
+          component={Details}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
@@ -82,6 +125,7 @@ const App = () => {
           component={ChatDetail}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+          
         <Stack.Screen
           name="tips"
           component={Onboarding}

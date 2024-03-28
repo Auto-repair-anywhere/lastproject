@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import {IP} from '../../ip.json'
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faHome, faShoppingCart, faListAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 
-
-const Nav = () => {
+const Navv = () => {
   const navigation = useNavigation();
-  const [selectedIcon, setSelectedIcon] = useState('Home');
+  const [selectedIcon, setSelectedIcon] = useState('shop');
 
   const handleIconClick = (iconName) => {
     setSelectedIcon(iconName);
-      navigation.navigate(iconName)
+    navigation.navigate(iconName) 
   };
 
   const getIconColor = (iconName) => {
     return selectedIcon === iconName ? 'rgb(58,159,253)' : 'rgb(112,116,119)';
   };
-
 
   return (
     <View style={styles.bottomnav}>
@@ -25,61 +23,40 @@ const Nav = () => {
         style={styles.iconContainer}
         onPress={() => handleIconClick('Home')}
       >
-        <Icon
-          name="home"
-          size={30}
-          color={getIconColor('Home')}
-        />
-        <Text style={[styles.iconText, { color: getIconColor('home') }]}>Home </Text>
+        <FontAwesomeIcon icon={faHome} size={30} color={getIconColor('Home')} />
+        <Text style={[styles.iconText, { color: getIconColor('Home') }]}>Home </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleIconClick('cogs')}
+        onPress={() => handleIconClick('shop')}
       >
-        <Icon
-          name="cogs"
-          size={30}
-          color={getIconColor('cogs')}
-        />
-        <Text style={[styles.iconText, { color: getIconColor('cogs') }]}>Spare Parts </Text>
+        <FontAwesomeIcon icon={faShoppingCart} size={30} color={getIconColor('shop')} />
+        <Text style={[styles.iconText, { color: getIconColor('shop') }]}>Shop </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleIconClick('clipboard')}
+        onPress={() => handleIconClick('category')}
       >
-        <Icon
-          name="clipboard"
-          size={30}
-          color={getIconColor('clipboard')}
-        />
-        <Text style={[styles.iconText, { color: getIconColor('clipboard') }]}>Request </Text>
+        <FontAwesomeIcon icon={faListAlt} size={30} color={getIconColor('category')} />
+        <Text style={[styles.iconText, { color: getIconColor('category') }]}>Category </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleIconClick('wrench')}
+        onPress={() => handleIconClick('cart')}
       >
-        <Icon
-          name="wrench"
-          size={30}
-          color={getIconColor('wrench')}
-        />
-        <Text style={[styles.iconText, { color: getIconColor('wrench') }]}>Workshop </Text>
+        <FontAwesomeIcon icon={faShoppingCart} size={30} color={getIconColor('cart')} />
+        <Text style={[styles.iconText, { color: getIconColor('cart') }]}>Cart </Text>
       </TouchableOpacity>
-
 
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={() => handleIconClick('Chat')}
+        onPress={() => handleIconClick('WishlistScreen')}
       >
-        <Icon
-          name="comments"
-          size={30}
-          color={getIconColor('Chat')}
-        />
-        <Text style={[styles.iconText, { color: getIconColor('comments') }]}>Chat </Text>
+        <FontAwesomeIcon icon={faHeart} size={30} color={getIconColor('WishlistScreen')} />
+        <Text style={[styles.iconText, { color: getIconColor('WishlistScreen') }]}>Wishlist </Text>
       </TouchableOpacity>
     </View>
   );
@@ -87,13 +64,12 @@ const Nav = () => {
 
 const styles = StyleSheet.create({
   bottomnav: {
+    padding:5,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     width: '100%',
-    marginTop: 20,
     height: 65,
-    marginBottom: 0,
     backgroundColor: "white",
     borderRadius: 25,
     marginBottom: 10,
@@ -106,6 +82,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
+    
+  
   iconContainer: {
     alignItems: 'center',
     marginBottom: 10,
@@ -115,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Nav;
+export default Navv;
