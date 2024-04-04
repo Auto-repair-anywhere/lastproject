@@ -9,7 +9,7 @@ const PostDetail = ({ route }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const[refresh,setRefresh]=useState(false)
-  console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",refresh);
+
 
   const { id } = route.params;
 
@@ -27,11 +27,13 @@ const PostDetail = ({ route }) => {
     axios.get(`http://${IP}:8080/forum/getCom/${id}`)
       .then((result) => {
         setComments(result.data)
+        console.log(result.data)
       })
       .catch(err => {
         console.log("Error :", err);
       });
   }, [refresh]);
+
 
   const addComment = () => {
     axios.post(`http://${IP}:8080/forum/add/${id}`, {
@@ -39,14 +41,15 @@ const PostDetail = ({ route }) => {
       userIduser:1
     })
     .then((response) => {
-      console.log('Comment added:',response.data)
-      setRefresh(!refresh)
-
+      console.log('Comment added:', response.data);
+      setRefresh(!refresh);
     })
     .catch((err) => {
-      console.log('Error :', err)
+
+      console.log('Error:', err);
     });
   };
+  
 
   return (
 
@@ -91,12 +94,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor:'white'
   },
   postItem: {
     marginBottom: 20,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'white',
   },
   scrollView: {
     width: '100%',
@@ -145,8 +149,10 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    padding: 5,
-    marginRight: 10 
+    padding: 10,
+    marginRight: 10 ,
+    borderRadius:20,
+    
   },
   
 });

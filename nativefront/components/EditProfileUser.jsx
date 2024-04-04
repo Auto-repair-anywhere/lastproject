@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native'; 
 import { IP } from '../../nativefront/ip.json';
+import { ScrollView } from 'react-native-gesture-handler';
 const EditProfileUser =  () => {
 
     const [firstname, setFirstname] = useState('');
@@ -30,7 +31,7 @@ const EditProfileUser =  () => {
     };
 
     return (
-        <View>
+        <ScrollView>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.headerText}> My Account</Text>
@@ -40,7 +41,8 @@ const EditProfileUser =  () => {
             <View style={styles.content}>
                 <View style={styles.formContainer}>
                     <Text style={styles.title}>Edit Your Profile</Text>
-                    <TextInput
+                   <View style={{flexDirection:'row'}}>
+                   <TextInput
                         style={styles.input}
                         placeholder="First name"
                         value={firstname}
@@ -52,6 +54,7 @@ const EditProfileUser =  () => {
                         value={lastname}
                         onChangeText={text => setLastname(text)}
                     />
+                   </View>
                       <TextInput
                         style={styles.input}
                         placeholder="Number"
@@ -96,7 +99,7 @@ const EditProfileUser =  () => {
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -104,14 +107,20 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 12
+        marginTop: 12,
+        backgroundColor:'white'
     },
     header: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor:'white',
+        padding:10,
+        borderRadius:20,
     },
     headerText: {
         color: '#007bff',
         fontSize: 25,
+        fontWeight:'bold',
+        
 
 
     },
@@ -119,23 +128,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         marginHorizontal: 28,
-        marginVertical: 30
+        marginVertical: 30,
     },
     formContainer: {
-        padding: 14
+        padding: 10,
+        marginLeft:25
+       
     },
     title: {
         color: '#007bff',
-        fontSize: 20,
+        fontSize: 25,
+        backgroundColor:'white',
+        padding:10,
+        borderRadius:20
 
 
     },
     input: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#808080',
-        fontSize: 10,
-        marginVertical: 8,
-        textAlign:"center",
+      backgroundColor:'white',
+      border:2 ,
+      borderRadius:20,
+      marginTop:10,
+      padding:5,
+      fontSize:20,
+      margin:5
+      
+        
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -143,13 +161,19 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     button: {
-        marginRight: 20
+        marginRight: 20,
+        color: '#007bff',
+        backgroundColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius:10
     },
     buttonConfirm: {
-        color: '#fff',
-        backgroundColor: '#007bff',
+        color: '#007bff',
+        backgroundColor: 'white',
         paddingVertical: 10,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        borderRadius:10
     }
 });
 

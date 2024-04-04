@@ -4,15 +4,14 @@ import axios from 'axios';
 import { IP } from '../../ip.json';
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker'
-import { PermissionsAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const Forum = () => {
   const [data, setData] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [category, setCategory] = useState('');
-  const [image, setImage] = useState('');
+  const [category, setCategory] = useState();
+  const [image, setImage] = useState(null); // State to hold the selected image
   const [show, setShow] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
@@ -30,7 +29,6 @@ const Forum = () => {
         console.log("Error fetching data:", err);
       });
   }
-
   const fetchFilteredData = async () => {
     try {
       const response = await axios.get(`http://${IP}:8080/forum/getOne/${category}`);
@@ -39,50 +37,57 @@ const Forum = () => {
       console.error('Error fetching filtered data:', error);
     }
   }
-  
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
- const pickImage = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Permission to access media library denied');
-        return;
-      }
-
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-
-      if (result.cancelled) {
-        console.log('Image selection canceled');
-      } else if (result.uri) {
-        console.log('Selected image URI:', result.uri);
-        setImage(result.uri);
-      } else {
-        console.log('Failed to get image URI');
-      }
-    } catch (error) {
-      console.log('Error picking image:', error);
+    if (!result.cancelled) {
+      
+      setImage(result.assets[0].uri);
+      
     }
   };
-
-  const addPost = () => {
-    axios.post(`http://${IP}:8080/forum/post`, {
-      title: title,
-      content: content,
-      category: category,
-      image_url: image
-    })
-      .then((response) => {
-        console.log('Posted:', response.data);
-        fetchData();
-      })
-      .catch((err) => {
-        console.log('Error:', err);
-      });
+  const addPost = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('category', category);
+      formData.append('userId', 1); // Assuming userId is always 1
+  
+      
+      if (image) {
+        formData.append("image", {
+          uri: image,
+          type: "image/jpeg",
+          name: "photo.jpg",
+        });
+       
+      }
+      console.log(image,category,title,content);
+      console.log(formData);
+  
+     const response = await axios.post(`http://${IP}:8080/forum/post`,formData,
+     {
+       headers: {
+         "Content-Type": "multipart/form-data",
+       },
+     }
+   );
+      console.log('Posted:', response.data);
+      fetchData();
+      // Reset the form fields and selected image
+      setTitle('');
+      setContent('');
+      setCategory('');
+      setImage(null);
+    } catch (err) {
+      console.log('Error in Axios request:', err);
+    }
   }
 
   const inputFields = () => {
@@ -95,13 +100,15 @@ const Forum = () => {
     setModalVisible(false);
   }
 
- 
-
   const getDateFromDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit' });
     return formattedDate;
   };
+
+  
+  
+
   
   
   return (
@@ -123,11 +130,13 @@ const Forum = () => {
         <TouchableOpacity style={styles.navButton} onPress={() => categoryselected("Vehicle Maintenance")}>
           <Text style={styles.navButtonText}>Vehicle Maintenance</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={inputFields}>
+       
+      </ScrollView>
+
+    </View>
+    <TouchableOpacity style={styles.navButton} onPress={inputFields}>
           <Text style={styles.navButtonText}>{show ? "Hide Input" : "Add POST"}</Text>
         </TouchableOpacity>
-      </ScrollView>
-    </View>
 
     {show && (
       <View style={styles.card}>
@@ -153,8 +162,9 @@ const Forum = () => {
           <Picker.Item label="Vehicle Maintenance" value="Vehicle Maintenance" />
         </Picker>
         <TouchableOpacity style={styles.button} onPress={pickImage}>
-      <Text style={styles.buttonText}>Select Image</Text>
-    </TouchableOpacity>
+            <Text style={styles.buttonText}>Select Image</Text>
+          </TouchableOpacity>
+
     {image && <Image source={{ uri: image }} style={styles.selectedImage} />}
           <TouchableOpacity style={styles.button} onPress={addPost}>
             <Text style={styles.buttonText}>Add Post</Text>
@@ -193,14 +203,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingVertical: 10,
-    backgroundColor:'#007bff'
+    backgroundColor:'white',
+    padding:10,
+    borderRadius:20,
+    marginBottom:20,
+    marginTop:15
   },
   navButton: {
     paddingVertical: 5,
     paddingHorizontal: 10,
+    marginBottom:5,
+    backgroundColor:'white',
+    borderRadius:20,
+    
   },
   navButtonText: {
-    color: 'white',
+    color: '#007bff',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -226,6 +244,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    marginTop:30
   },
   postTitle: {
     fontSize: 18,
@@ -242,7 +261,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: 'white',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -250,7 +269,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   buttonText: {
-    color: '#fff',
+    color: '#007bff',
     fontSize: 16,
     fontWeight: 'bold',
   },
