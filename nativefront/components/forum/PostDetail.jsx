@@ -76,7 +76,7 @@ const PostDetail = ({ route }) => {
     style={styles.input}
     onChangeText={text => setNewComment(text)}
     value={newComment}
-    placeholder="Add a comment..."
+    placeholder="Add a comment"
     multiline
   />
   <TouchableOpacity onPress={addComment}>
