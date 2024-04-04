@@ -16,6 +16,9 @@ import RequestUser from './components/requests/RequestUser.jsx'
 import Payment from './components/Payment.jsx'
 import Confirmcar from './components/gitcar/Confirm.jsx';
 import Buttom from './components/ComponentsAchref/Buttom.jsx'
+import Forum from './components/forum/Forum.jsx'
+import PostDetail from './components/forum/PostDetail.jsx';
+import EditProfileUser from './components/EditProfileUser.jsx'
 import HomeScreen from './components/auth/home.jsx';
 import Tire from './components/auth/tirePanne.jsx';
 import CreateBreakdownScreen from './components/CreateBreakdownScreen/index.js';
@@ -25,6 +28,7 @@ import * as Location from 'expo-location';
 import { addProfessionelPosition } from './store/actions.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifications from './components/notifications/notifications.jsx';
+
 const Stack = createStackNavigator();
 
 const LogoTitle = () => (
@@ -82,7 +86,7 @@ const App = () => {
     <NavigationContainer>
        
      <Stack.Navigator
-       initialRouteName="Login"
+       initialRouteName="Forum"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -118,8 +122,8 @@ const App = () => {
           component={HomeScreen}
         />
          <Stack.Screen
-          name="getcar"
-          component={Getcar}
+          name="Forum"
+          component={Forum}
         />
           <Stack.Screen
           name="Confirm"
@@ -186,9 +190,29 @@ const App = () => {
           component={Payment}
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
+        {/* <Stack.Screen
+          name="Forum"
+          component={Forum}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        /> */}
 
-       
-       
+      <Stack.Screen
+          name="PostDetail"
+          component={PostDetail}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+              {/* <Stack.Screen
+          name="EditProfileUser"
+          component={EditProfileUser}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        /> */}
+          <Stack.Screen
+          name="ProHome"
+          component={ProHome}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+      </Stack.Navigator>
+      <Nav/> 
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,6 +12,7 @@ const carplate=require('../Backend/Routes/findcar')
 const auth =require('../Backend/Routes/auth.route')
 const forumRouter=require('../Backend/Routes/forum')
 const requestRouter=require('../Backend/Routes/reqUser')
+const userRouter=require('../Backend/Routes/editProfileUser')
 app.use(cors())
 app.use(express.json())
 connection.sync()
@@ -44,7 +45,7 @@ app.use('/req',professionalRouter)
 app.use('/chat',chatrouter)
 app.use('/forum',forumRouter)
 app.use('/reqU',requestRouter)
-
+app.use('/user',userRouter)
 app.use(express.static(__dirname + '/../client/dist'))
 
 app.listen(PORT, () => {

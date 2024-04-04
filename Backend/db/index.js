@@ -123,16 +123,16 @@ const Forum = connection.define('forum', {
       autoIncrement: true
   },
   title: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(100),
       allowNull: false
   },
   content: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.TEXT,
       allowNull: false
   },
   image_url: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
   category: {
       type: DataTypes.STRING(45),
@@ -412,8 +412,8 @@ User.hasMany(Forum);
 Forum.hasMany(Comments);
 Comments.belongsTo(Forum);
 
-Forum.belongsTo(User);
-User.hasMany(Forum);
+// Forum.belongsTo(User);
+// User.hasMany(Forum);
 
 Comments.belongsTo(User);
 User.hasMany(Comments);
@@ -446,7 +446,7 @@ Request.hasMany(UserHasRequest);
 UserHasRequest.belongsTo(Request);
 
 
-connection.sync({alter: true})
+connection.sync()
 
 module.exports = {
   Admin,
