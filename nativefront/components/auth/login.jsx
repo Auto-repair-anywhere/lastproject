@@ -8,31 +8,38 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
   const navigation = useNavigation();
+ 
 
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
   const handleLogin = async () => {
     try {
-      await axios.post(`http://${IP}:8080/auth/login`, { email, password }).then(async(res)=>{
+      const response = await axios.post(`http://${IP}:8080/auth/login`, { email, password });
+  
+      if (response.data.user.iduser !== undefined) {
+        await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
+        await AsyncStorage.setItem('userId', JSON.stringify(response.data.user.iduser));
+        console.log('Login successful:');
         
-      if (res.data.user.iduser !== undefined) {
-        await AsyncStorage.setItem('userId', res.data.user.iduser.toString());
-        console.log('Login successful:', res.data);
-        navigation.navigate('Home');
+        const role = response.data.user.role;
+        if (role === 'user') {
+          navigation.navigate('getcar');
+        } else {
+          navigation.navigate('Professional');
+        }
       } else {
         console.log('User ID is undefined in the response data.');
       }
-      }).catch((err)=>console.log(err))
-  
     } catch (error) {
       console.log('Login error:', error);
     }
   };
   
-
+  
   return (
     <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -55,6 +62,8 @@ const Login = () => {
           onChangeText={(text) => setEmail(text)}
           onFocus={() => setIsEmailFocused(true)}
           onBlur={() => setIsEmailFocused(false)}
+          value={email}
+
         />
         <TextInput
           style={[styles.input, isPasswordFocused && styles.focusedInput]}
@@ -63,6 +72,7 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           onFocus={() => setIsPasswordFocused(true)}
           onBlur={() => setIsPasswordFocused(false)}
+          value={password}
         />
 
         <TouchableOpacity onPress={() => console.log("Forget your password!")}>

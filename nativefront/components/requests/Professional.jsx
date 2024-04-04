@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import axios from 'axios'
-import {IP} from '../../ip.json'
+import { IP } from '../../ip.json'
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const Professional = () => { // Assuming `id` and `navigation` are passed as props
+const Professional = () => {
   const [requests, setRequests] = useState([]);
   const navigation = useNavigation();
-  
+
   useEffect(() => {
-    axios.get(`http://${IP}:8080/req/getall/${1}`)
+    axios.get(`http://${IP}:8080/req/getRequests`)
       .then(result => {
         setRequests(result.data);
-        console.log(requests);
       })
       .catch(err => {
-        console.log("Error fetching :", err);
+        console.log("Error fetching requests:", err);
       });
-  },[]);
-  
+  }, []);
+
+
   return (
     <ScrollView>
     <View style={styles.container}>
@@ -73,6 +73,7 @@ const Professional = () => { // Assuming `id` and `navigation` are passed as pro
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 15,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -121,13 +121,16 @@ const styles = StyleSheet.create({
     borderColor:'rgb(58,159,253)',
     
   },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: 'rgb(58,159,253)',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
-    width:130
   },
   viewDetails: {
     color: '#fff',

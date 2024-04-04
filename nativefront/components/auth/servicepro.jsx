@@ -1,74 +1,45 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Swiper from 'react-native-swiper';
-import { useNavigation } from '@react-navigation/native';
-import {IP} from "../../ip.json"
-
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const ServiceePro = () => {
-    const navigation = useNavigation();
+  const route = useRoute();
+  const { type, carData } = route.params;
+  const navigation = useNavigation();
 
+  let services = [
+    { imageSource: require('../../assets/fuel.png'), buttonText: 'Fuel', screenName: 'Home' },
+    { imageSource: require('../../assets/tire.png'), buttonText: 'Tire', screenName: 'tire' },
+    { imageSource: require('../../assets/batry.png'), buttonText: 'Battery', screenName: 'Battery' },
+    { imageSource: require('../../assets/whinch.png'), buttonText: 'Whinch', screenName: 'Battery' },
+    { imageSource: require('../../assets/whinch.png'), buttonText: 'LockOut', screenName: 'Battery' },
+    { imageSource: require('../../assets/TOW.png'), buttonText: 'Tow', screenName: 'Battery' },
+  ];
+
+  // Filter services based on type
+  if (type === 1) {
+    services = services.filter(service => service.buttonText === 'Fuel' || service.buttonText === 'Tire' || service.buttonText === 'Battery');
+  }
+
+  const renderServiceItem = ({ item }) => (
+    <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate("tire", { problem: item?.buttonText, type: type, carData: carData })}>
+      <Image source={item.imageSource} style={styles.Image} />
+      <Text style={styles.iconText}>{item.buttonText}</Text>
+    </TouchableOpacity>
+  );
   
-    return (
-      <View style={styles.container}>
-        <View style={styles.swiperContainer} showsButtons={false} autoplay={true}>
-            
-              <Image
-                source={require('../../assets/bring.png')}
-                style={styles.slideImage}
-              />
-        
-          </View>
-  
-         
 
-          <Text style={styles.iconTextt}>Get Your Service </Text>
-      <View style={styles.iconsContainer}>
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Home')}>
-        <Image
-            source={require('../../assets/fuel.png')}
-            style={styles.Image}
-          />          
-          <Text style={styles.iconText}>Fuel </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('tire')}>
-        <Image
-            source={require('../../assets/tire.png')}
-            style={styles.Image}
-          />          
-           <Text style={styles.iconText}>Tire </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Battery')}>
-        <Image
-            source={require('../../assets/batry.png')}
-            style={styles.Image}
-          />          
-           <Text style={styles.iconText}>Battery </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Battery')}>
-        <Image
-            source={require('../../assets/batry.png')}
-            style={styles.Image}
-          />          
-           <Text style={styles.iconText}>Whinch </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Battery')}>
-        <Image
-            source={require('../../assets/whinch.png')}
-            style={styles.Image}
-          />          
-           <Text style={styles.iconText}>LockOut </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Battery')}>
-        <Image
-            source={require('../../assets/TOW.png')}
-            style={styles.Image}
-          />          
-           <Text style={styles.iconText}>Tow </Text>
-        </TouchableOpacity>
-      </View>
+  return (
+    <View style={styles.container}>
+      <Image source={require('../../assets/bring.png')} style={styles.slideImage} />
+      <Text style={styles.iconTextt}>Get Your Service</Text>
+      <FlatList
+        data={services}
+        renderItem={renderServiceItem}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={3}
+        contentContainerStyle={styles.iconsContainer}
+      />
     </View>
   );
 };
@@ -79,52 +50,40 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   swiperContainer: {
-    height: '50%',
-    marginTop: 5,
-  },
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    
   },
   slideImage: {
     width: '100%',
-    height: '100%',
-    resizeMode:'contain'
-    
+    resizeMode:'stretch',
+    height:250,
+    marginBottom:10
   },
   Image: {
     width: 100,
     height: 95,
-    marginLeft:25,
-    marginTop:10
+    marginLeft: 25,
+    marginTop: 10
   },
   iconsContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    marginTop: 20,
-    height: '50%',
-    width: '100%',
-    marginLeft:13
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 10,
+    paddingBottom: 20,
   },
   icon: {
     alignItems: 'center',
   },
   iconText: {
     marginTop: 10,
-    fontWeight:"bold",
-    marginLeft:28,
-    fontSize:15
-    
+    fontWeight: 'bold',
+    marginLeft: 28,
+    fontSize: 15
   },
   iconTextt: {
-    marginTop: 10,
-    fontWeight:"bold",
-    marginLeft:28,
-    fontSize:25
-    
+    fontWeight: 'bold',
+    marginLeft: 28,
+    fontSize: 25
   },
-  
 });
 
-export default ServiceePro
+export default ServiceePro;
