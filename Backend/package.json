@@ -2,9 +2,11 @@
   "name": "finalproject",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "sockit": "nodemon socket.js"
   },
   "dependencies": {
+    "@supersami/rn-foreground-service": "^2.1.0",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.0.3",

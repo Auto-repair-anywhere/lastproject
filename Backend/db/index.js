@@ -4,7 +4,7 @@ const mysql = require('mysql2')
 
 
 
-const connection = new Sequelize('finalproject', 'root', 'nour123', {
+const connection = new Sequelize('finalproject', 'root', '1234', {
     host:'localhost',
     dialect:'mysql'
 })
@@ -49,7 +49,7 @@ const User = connection.define('user', {
   },
   Number: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   lastname: {
     type: DataTypes.STRING(45),
@@ -67,10 +67,24 @@ const User = connection.define('user', {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
+  latitude: { 
+    type: DataTypes.FLOAT, 
+    allowNull: true,
+  },
+  longitude: { 
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  role: { 
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    defaultValue: 'user',
+  },
 }, {
   freezeTableName: true,
   timestamps: false,
 });
+
 
 const Car = connection.define('Car', {
   idcar: {
@@ -84,8 +98,8 @@ const Car = connection.define('Car', {
     allowNull: false,
   },
   carplate: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
+    type: DataTypes.STRING(255),
+    allowNull: true,
   },
   fueltype: {
     type: DataTypes.STRING(500),
@@ -156,7 +170,7 @@ const Request = connection.define('request', {
     autoIncrement: true,
   },
   brand: {
-    type: DataTypes.STRING(45),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   problem: {
@@ -173,7 +187,7 @@ const Request = connection.define('request', {
   },
   milage: {
     type: DataTypes.STRING(45),
-    allowNull: false,
+    allowNull: true,
   },
   status: {
     type: DataTypes.STRING(45),
@@ -181,7 +195,7 @@ const Request = connection.define('request', {
   },
   satisfaction: {
     type: DataTypes.STRING(45),
-    allowNull: false,
+    allowNull: true,
   },
   imageurl: {
     type: DataTypes.STRING(255),
@@ -195,10 +209,35 @@ const Request = connection.define('request', {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+  spareTireOption: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  parkingGarageOption: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  id_professionel: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'User',
+      key: 'iduser'
+    }
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'User',
+      key: 'iduser'
+    }
+  }
 }, {
   freezeTableName: true,
   timestamps: false,
 });
+
 
 const Images = connection.define('images', {
   idimages: {
