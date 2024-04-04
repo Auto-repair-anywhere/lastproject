@@ -213,7 +213,6 @@ const App = () => {
         />
       </Stack.Navigator>
       <Nav/> 
-      </Stack.Navigator>
     </NavigationContainer>
   );
 };
